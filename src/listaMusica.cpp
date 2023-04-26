@@ -1,54 +1,132 @@
 #include <iostream>
+#include <string>
+#include <cstring>
 
 using namespace std;
 
-#include "listaMusica.h"
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
 
-// Construtores
-listaMusica::listaMusica(Musica d)
+#include "ListaMusica.h"
+
+// Construtor
+ListaMusica::ListaMusica()
 {
-    // talvez precise de "this->"
-    data = d;
-    proxima = NULL;
+    this->cabeca = nullptr;
+    this->cauda = nullptr;
+    this->tamanho = 0;
 }
 
-// Destrutores
-listaMusica::~listaMusica() {}
-
-// Gets
-Musica listaMusica::getMusica() { return data; }
-
-listaMusica *listaMusica::getProxima() { return proxima; }
-
-// Sets
-void listaMusica::setProxima(listaMusica *p)
+// Destrutor
+ListaMusica::~ListaMusica()
 {
-    proxima = p;
-};
+    cout << "CAIU" << endl;
+}
 
-// Função buscar
-listaMusica *buscar(listaMusica *c, string n, string a)
+// Funções CRUD
+void ListaMusica::inserir(Musica m)
 {
-    listaMusica *p, *prox;
-    p = c;
-    prox = p->getProxima();
+    No *nova = new No(m);
 
-    // o loop vai se repetir até o ponteiro ser igual a NULL (última célula) e vai continuar comparando
-    while (prox != NULL)
+    if (this->cauda == nullptr)
     {
-        p = prox;
-        prox = prox->getProxima();
+        this->cabeca = nova;
+        this->cauda = nova;
+    }
+    else
+    {
+        this->cauda->proximo = nova;
+        this->cauda = nova;
+    }
+    this->tamanho++;
+}
 
-        if (prox->getMusica().getTitulo().compare(n) == 0 && prox->getMusica().getArtista().compare(a) == 0)
+bool ListaMusica::remover(int indiceParaRemover) {
+    No *noAtual, *noProximo, *noExcluido;
+    noAtual = this->cabeca;
+    noProximo = noAtual->proximo;
+
+    // checa se a lista tem o tamanho menor que o índice
+    if (indiceParaRemover > this->tamanho - 1)
+    {
+        return false;
+    }        
+    
+    // caso o ínice excluído seja a cabeça
+    if (indiceParaRemover == 0)
+    {
+        // Definino que o nó a ser excluído é a cabeça
+        noExcluido = this->cabeca;
+        // Substituindo endereço da cabeça da lista
+        this->cabeca = this->cabeca->proximo;
+
+        // liberando célula desejada
+        free(noExcluido);
+        this->tamanho--;
+
+        return true;
+    }
+    
+
+    // caso o índice excluído seja a cauda
+    if (indiceParaRemover == this->tamanho - 1)
+    {
+        // alterando endereço da célula anterior
+        for (int i = 0; i != indiceParaRemover - 1; i++)
         {
-            return prox;
+            noAtual = noAtual->proximo;
         }
+
+        noAtual->proximo = nullptr;
+        
+        // liberando célula desejada
+        noExcluido = this->cauda;
+        free(noExcluido);
+        this->tamanho--;
+
+        // alterando a cauda da lista para penúltima célula
+        this->cauda = noAtual;
+
+        return true;
+    }
+    
+    // loop se repete até achar o indíce anterior ao que será excluído
+    for (int i = 0; i != indiceParaRemover - 1; i++)
+    {
+        noAtual = noAtual->proximo;
+        noProximo = noAtual->proximo;
     }
 
-    return NULL;
+    // altera o endereço armazenado no índice para pular o que foi excluído
+    noAtual->proximo = noProximo->proximo;
+
+    // libera o espaço do índice que será excluído
+    noExcluido = noProximo;
+    free(noExcluido);
+    this->tamanho--;
+
+    return true;
 }
 
-void inserir() {}
-void remover(listaMusica, listaMusica)
+// Função busca nó por índice e retorna o valor armazenado nele
+No *ListaMusica::buscarPorIndice(int indiceBuscado)
 {
+    No *noAtual;
+    noAtual = this->cabeca;
+
+    // checa se a lista tem o tamanho menor que o índice
+    if (indiceBuscado > this->tamanho - 1)
+    {
+        return nullptr;
+    }
+
+    // loop se repete até achar o indíce buscado
+    for (int i = 0; i != indiceBuscado; i++)
+    {
+        noAtual = noAtual->proximo;
+    }
+
+    return noAtual;
 }

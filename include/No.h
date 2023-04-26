@@ -5,13 +5,13 @@
 
 class No
 {
-private:
+public:
     Musica data;
     No *proximo;
 
-public:
     // Construtores
     No(Musica data);
+    No();
 
     // Gets
     Musica getMusica();

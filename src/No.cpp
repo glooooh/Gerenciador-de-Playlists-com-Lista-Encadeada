@@ -11,9 +11,10 @@ No::No(Musica data)
     No *proximo = nullptr;
 }
 
+No::No() {}
+
 // Gets
 Musica No::getMusica() { return data; }
-
 
 /*
 // Destrutores

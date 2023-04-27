@@ -1,4 +1,4 @@
-# DIM0120 - 2023.1 – Projeto 1
+# DIM0120 - 2023.1 – Gerenciador de Playlists com Lista Encadeada (Projeto 1)
 
 ## Equipe:
 A equipe é composta por dois alunos do curso de Bacharelado em Tecnologia da Informação, são eles:

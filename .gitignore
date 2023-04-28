@@ -1,5 +1,5 @@
 build/CMakeFiles
-build/html
+build\doc
 build/cmake_install.cmake
 build/CMakeCache.txt
 build/CMakeDoxyfile.in

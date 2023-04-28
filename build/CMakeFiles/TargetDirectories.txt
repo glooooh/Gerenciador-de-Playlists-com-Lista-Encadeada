@@ -1,0 +1,5 @@
+C:/Users/glori/Documents/uefy/disciplinas/linguagem de programacao I/Projeto1-LPI/build/CMakeFiles/MeuProjeto.dir
+C:/Users/glori/Documents/uefy/disciplinas/linguagem de programacao I/Projeto1-LPI/build/CMakeFiles/doc_doxygen.dir
+C:/Users/glori/Documents/uefy/disciplinas/linguagem de programacao I/Projeto1-LPI/build/CMakeFiles/docs.dir
+C:/Users/glori/Documents/uefy/disciplinas/linguagem de programacao I/Projeto1-LPI/build/CMakeFiles/edit_cache.dir
+C:/Users/glori/Documents/uefy/disciplinas/linguagem de programacao I/Projeto1-LPI/build/CMakeFiles/rebuild_cache.dir

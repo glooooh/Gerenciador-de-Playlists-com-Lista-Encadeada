@@ -170,7 +170,7 @@ public:
     }
 };
 
-#endif;
+#endif
 
 // A QUESTÃO PEDE:
 // a) Crie métodos de inserção e remoção de elementos na lista

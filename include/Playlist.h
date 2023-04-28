@@ -47,7 +47,7 @@ public:
     void impressaoRecursiva(No<Musica> *celula);
 };
 
-#endif;
+#endif
 
 // a) Crie os construtores e destrutores correspondentes à classe
 // b) Crie métodos de adição e remoção de músicas à uma playlist (músicas devem ser

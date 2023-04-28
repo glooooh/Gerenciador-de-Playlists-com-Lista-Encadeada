@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 build/CMakeFiles
 build/html
 build/cmake_install.cmake
@@ -7,3 +8,14 @@ build/CMakeDoxygenDefaults.cmake
 build/Doxyfile
 build/Doxyfile.docs
 build/Makefile
+=======
+build\CMakeFiles
+build\html
+build\cmake_install.cmake
+build\CMakeCache.txt
+build\CMakeDoxyfile.in
+build\CMakeDoxygenDefaults.cmake
+build\Doxyfile
+build\Doxyfile.docs
+build\Makefile
+>>>>>>> 9fce30b43b60eea3a5ec2e84c16fdbfac00c71ad

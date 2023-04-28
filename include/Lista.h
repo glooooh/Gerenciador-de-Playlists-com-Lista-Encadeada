@@ -40,11 +40,17 @@ public:
 
     /**
      * @brief Destrutor da classe Lista.
-     * 
+     *
      */
     ~Lista()
     {
-        
+        // No<T> *atual = cabeca;
+        // while (atual != nullptr)
+        // {
+        //     No<T> *prox = atual->prox;
+        //     delete atual;
+        //     atual = prox;
+        // }
     }
 
     /**

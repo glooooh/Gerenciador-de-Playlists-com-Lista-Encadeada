@@ -18,16 +18,16 @@ using namespace std;
 class Playlist
 {
 private:
-    string nome;               /*!< Nome da playlist */
-    Lista<Musica> *lista;      /*!< Lista ligada de músicas da playlist */
-    No<Musica> *musicaTocando; /*!< Ponteiro para a música tocando atualmente */
+    string nome;          /*!< Nome da playlist */
+    Lista<Musica> *lista; /*!< Lista ligada de músicas da playlist */
+    int musicaTocando;    /*!< Ponteiro para a música tocando atualmente */
 
 public:
-    //Construtores
+    // Construtores
     Playlist(string);
     Playlist();
-    
-    //Destrutor
+
+    // Destrutor
     ~Playlist();
 
     // Gets
@@ -36,15 +36,15 @@ public:
 
     // CRUD
     bool adicionarMusica(Musica);
-    bool removerMusica(int); 
+    bool removerMusica(int);
 
     // Metodos da funcionalidade "tocando"
-    Musica proximaMusica();
+    void proximaMusica();
 
     // Impressão com recursão
     void imprimir();
-    //Chamado pela função imprimir()
-    void impressaoRecursiva(No<Musica> *celula);
+    // Chamado pela função imprimir()
+    void impressaoRecursiva(No<Musica> *, int);
 };
 
 #endif

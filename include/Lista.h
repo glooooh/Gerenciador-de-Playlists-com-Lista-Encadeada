@@ -44,7 +44,7 @@ public:
      */
     ~Lista()
     {
-        cout << "CAIU" << endl;
+        
     }
 
     /**

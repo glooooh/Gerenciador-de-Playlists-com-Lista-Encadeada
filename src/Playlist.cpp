@@ -19,7 +19,7 @@ Playlist::Playlist(string n)
 {
     this->nome = n;
     this->lista = new Lista<Musica>();
-    this->musicaTocando = nullptr;
+    musicaTocando = 0;
 }
 
 /**
@@ -33,7 +33,6 @@ Playlist::Playlist() {}
 Playlist::~Playlist()
 {
     delete lista;
-    delete musicaTocando;
 }
 
 /**
@@ -81,24 +80,29 @@ bool Playlist::removerMusica(int indice)
  * @brief Toca a próxima música da playlist.
  * @return a próxima música da playlist.
  */
-Musica Playlist::proximaMusica()
+void Playlist::proximaMusica()
 {
-    // caso seja a primeira vez tocando a playlist ou a playlist chegou à última música
-    if (this->musicaTocando == nullptr || this->musicaTocando->proximo == nullptr)
+    if (this->lista->tamanho <= 0)
     {
-        this->musicaTocando = this->lista->cabeca;
-
-        if (this->musicaTocando != nullptr)
-        {
-            cout << "A PLAYLIST IRÁ RECOMEÇAR!" << endl;
-        }
-
-        return this->musicaTocando->data;
+        cout << "A PLAYLIST NAO POSSUI MUSICAS" << endl;
+        return;
     }
 
+    No<Musica> *celula = new No<Musica>;
+    // caso seja a primeira vez tocando a playlist ou a playlist chegou à última música
+    if (this->musicaTocando == this->lista->tamanho)
+    {
+        cout << "A PLAYLIST IRA RECOMECAR!" << endl;
+        this->musicaTocando = 0;
+    }
+
+    celula = this->lista->buscarPorIndice(musicaTocando);
+
+    cout << "Musica tocando agora: " << celula->data.getTitulo() << endl;
+
     // padrão (existe uma próxima música e ela será tocada)
-    this->musicaTocando = this->musicaTocando->proximo;
-    return this->musicaTocando->data;
+    this->musicaTocando++;
+    return;
 }
 
 /**
@@ -112,7 +116,7 @@ void Playlist::imprimir()
         return;
     }
 
-    impressaoRecursiva(this->lista->cabeca);
+    impressaoRecursiva(this->lista->cabeca, 0);
 
     return;
 }
@@ -121,14 +125,14 @@ void Playlist::imprimir()
  * @brief Função auxiliar para imprimir as músicas da playlist recursivamente.
  * @param celula é a célula atual da lista encadeada.
  */
-void Playlist::impressaoRecursiva(No<Musica> *celula)
+void Playlist::impressaoRecursiva(No<Musica> *celula, int indice)
 {
-    cout << "Título da música:" << celula->data.getTitulo() << endl
-         << "Artista:" << celula->data.getArtista() << endl;
+    cout << indice + 1 << ". '" << celula->data.getTitulo() << "' de " << celula->data.getArtista() << endl;
 
     if (celula->proximo != nullptr)
     {
-        impressaoRecursiva(celula->proximo);
+        indice++;
+        impressaoRecursiva(celula->proximo, indice);
     }
 
     return;

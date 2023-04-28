@@ -40,6 +40,15 @@ public:
     No() {}
 
     /**
+     * @brief Destrutor da classe No.
+     * 
+     */
+    ~No()
+    {
+        
+    }
+
+    /**
      * @brief Retorna o dado armazenado no Nó.
      * @return O dado armazenado no Nó.
      */

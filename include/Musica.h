@@ -1,3 +1,6 @@
+#ifndef MUSICA_H
+#define MUSICA_H
+
 #include <string>
 using namespace std;
 
@@ -19,3 +22,5 @@ public:
     string getTitulo();
     string getArtista();
 };
+
+#endif;

@@ -7,3 +7,4 @@ build/CMakeDoxygenDefaults.cmake
 build/Doxyfile
 build/Doxyfile.docs
 build/Makefile
+Doxyfile.in

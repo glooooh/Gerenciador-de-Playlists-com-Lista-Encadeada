@@ -1,3 +1,8 @@
+/**
+ * @file Musica.h
+ * @brief Arquivo header da classe Música.
+ */
+
 #ifndef LISTA_H
 #define LISTA_H
 
@@ -7,16 +12,25 @@ using namespace std;
 
 #include "No.h"
 
+/**
+ * @brief Classe que representa uma lista encadeada.
+ *
+ * @tparam cabeca é o típo de dado armazenado no nó.
+ */
 template <typename T>
 class Lista
 {
 public:
-    No<T> *cabeca;
-    No<T> *cauda;
-    int tamanho;
+    No<T> *cabeca; /*!< Ponteiro para o primeiro nó da lista.*/
+    No<T> *cauda;  /*!< Ponteiro para o último nó da lista.*/
+    int tamanho;   /*!< Tamanho atual da lista.*/
 
 public:
-    // Construtores e desconstrutores
+    /**
+     * @brief Construtor padrão da classe Lista.
+     *
+     * Inicializa os ponteiros de cabeça e cauda como nulos e o tamanho como 0
+     */
     Lista()
     {
         this->cabeca = nullptr;
@@ -24,12 +38,20 @@ public:
         this->tamanho = 0;
     }
 
+    /**
+     * @brief Destrutor da classe Lista.
+     * 
+     */
     ~Lista()
     {
         cout << "CAIU" << endl;
     }
 
-    // CRUDS
+    /**
+     * @brief Insere um novo elemento na lista.
+     *
+     * @param data O dado a ser inserido na lista.
+     */
     void inserir(T data)
     {
         No<T> *nova = new No<T>(data);
@@ -47,6 +69,12 @@ public:
         this->tamanho++;
     }
 
+    /**
+     * @brief Remove um elemento da lista.
+     *
+     * @param indiceParaRemover O índice do elemento a ser removido da lista.
+     * @return true se o elemento foi removido com sucesso, false caso contrário.
+     */
     bool remover(int indiceParaRemover)
     {
         No<T> *noAtual, *noProximo, *noExcluido;
@@ -114,6 +142,12 @@ public:
         return true;
     }
 
+    /**
+     * @brief Busca um elemento da lista pelo índice.
+     *
+     * @param indiceBuscado O índice do elemento que está sendo buscado.
+     * @return O nó da lista correspondente ao índice buscado, ou nullptr caso o índice não exista na lista.
+     */
     // Função busca nó por índice e retorna o valor armazenado nele
     No<T> *buscarPorIndice(int indiceBuscado)
     {

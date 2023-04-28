@@ -1,24 +1,34 @@
+/**
+ * @file Musica.h
+ * @brief Arquivo header da classe Musica.
+ */
+
 #ifndef MUSICA_H
 #define MUSICA_H
 
 #include <string>
 using namespace std;
 
+
+/**
+ * @class Musica
+ * @brief Classe que representa uma musica.
+ */
 class Musica
 {
 private:
-    string titulo;
-    string artista;
+    string titulo;      /*!< Nome da música */
+    string artista;     /*!< Artista responsável pela música */
 
 public:
-// Construtores
+    // Construtores
     Musica(string, string);
     Musica();
 
-// Destrutores
+    // Destrutor
     ~Musica();
 
-// Gets
+    // Gets
     string getTitulo();
     string getArtista();
 };

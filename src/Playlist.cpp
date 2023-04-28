@@ -1,16 +1,20 @@
+/**
+ * @file Playlist.cpp
+ * @brief Implementação dos métodos da classe Playlist
+ */
+
 #include <iostream>
 #include <string>
 #include <cstring>
 
 using namespace std;
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::string;
-
 #include "Playlist.h"
 
+/**
+ * @brief Construtor da classe Playlist.
+ * @param nome é o nome da playlist.
+ */
 Playlist::Playlist(string n)
 {
     this->nome = n;
@@ -18,31 +22,54 @@ Playlist::Playlist(string n)
     this->musicaTocando = nullptr;
 }
 
+/**
+ * @brief Construtor padrão da classe Playlist.
+ */
 Playlist::Playlist() {}
 
+/**
+ * @brief Destrutor da classe Playlist.
+ */
 Playlist::~Playlist()
 {
+    delete lista;
+    delete musicaTocando;
 }
 
-// Gets
+/**
+ * @brief Retorna o nome da playlist.
+ * @return o nome da playlist.
+ */
 string Playlist::getNome()
 {
     return nome;
 }
 
+/**
+ * @brief Retorna a lista de músicas da playlist.
+ * @return a lista de músicas da playlist.
+ */
 Lista<Musica> *Playlist::getLista()
 {
     return lista;
 }
 
-// CRUD
-
+/**
+ * @brief Adiciona uma música à playlist.
+ * @param musica é a música a ser adicionada.
+ * @return true se a música foi adicionada com sucesso.
+ */
 bool Playlist::adicionarMusica(Musica m)
 {
     this->lista->inserir(m);
     return true;
 }
 
+/**
+ * @brief Remove uma música da playlist.
+ * @param indice é o índice da música a ser removida.
+ * @return true se a música foi removida com sucesso, false caso contrário.
+ */
 bool Playlist::removerMusica(int indice)
 {
     bool statusOperacao;
@@ -50,7 +77,10 @@ bool Playlist::removerMusica(int indice)
     return statusOperacao;
 }
 
-// Metodos da funcionalidade "tocando"
+/**
+ * @brief Toca a próxima música da playlist.
+ * @return a próxima música da playlist.
+ */
 Musica Playlist::proximaMusica()
 {
     // caso seja a primeira vez tocando a playlist ou a playlist chegou à última música
@@ -71,7 +101,9 @@ Musica Playlist::proximaMusica()
     return this->musicaTocando->data;
 }
 
-// Impressão com recursão
+/**
+ * @brief Imprime as músicas da playlist.
+ */
 void Playlist::imprimir()
 {
     if (this->lista->cabeca == nullptr)
@@ -85,6 +117,10 @@ void Playlist::imprimir()
     return;
 }
 
+/**
+ * @brief Função auxiliar para imprimir as músicas da playlist recursivamente.
+ * @param celula é a célula atual da lista encadeada.
+ */
 void Playlist::impressaoRecursiva(No<Musica> *celula)
 {
     cout << "Título da música:" << celula->data.getTitulo() << endl

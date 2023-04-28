@@ -1,20 +1,42 @@
+/**
+ * @file Musica.cpp
+ * @brief Implementação dos métodos da classe Musica
+ */
+
 #include <iostream>
 #include "Musica.h"
 
 using namespace std;
 
-// Construtores
-Musica::Musica(string tit, string art)
+/**
+ * @brief Construtor da classe Musica.
+ * @param t é o nome da Musica.
+ * @param a é o artista responsável pela Música.
+ */
+Musica::Musica(string t, string a)
 {
-    titulo = tit;
-    artista = art;
+    titulo = t;
+    artista = a;
 }
+
+/**
+ * @brief Construtor padrão da classe Musica.
+ */
 Musica::Musica() {}
 
-// Destrutores
+/**
+ * @brief Destrutor da classe Musica.
+ */
 Musica::~Musica() {}
 
-// Gets
+/**
+ * @brief Retornar o titulo da musica.
+ * @return o titulo da musica.
+ */
 string Musica::getTitulo() { return titulo; }
 
+/**
+ * @brief Retornar o artista responsável pela musica.
+ * @return o artista responsável pela musica.
+ */
 string Musica::getArtista() { return artista; }

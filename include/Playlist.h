@@ -1,3 +1,8 @@
+/**
+ * @file Playlist.h
+ * @brief Arquivo header da classe Playlist.
+ */
+
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
 
@@ -6,34 +11,39 @@ using namespace std;
 
 #include "Lista.h"
 
+/**
+ * @class Playlist
+ * @brief Classe que representa uma playlist.
+ */
 class Playlist
 {
 private:
-    string nome;
-    Lista<Musica> *lista;
-    No<Musica> *musicaTocando;
+    string nome;               /*!< Nome da playlist */
+    Lista<Musica> *lista;      /*!< Lista ligada de músicas da playlist */
+    No<Musica> *musicaTocando; /*!< Ponteiro para a música tocando atualmente */
 
 public:
-    // Construtores e desconstrutores
+    //Construtores
     Playlist(string);
     Playlist();
+    
+    //Destrutor
     ~Playlist();
 
     // Gets
     string getNome();
-    // REVISAR <MUSICA>
     Lista<Musica> *getLista();
 
     // CRUD
     bool adicionarMusica(Musica);
-    bool removerMusica(int); // por índice ou música?
+    bool removerMusica(int); 
 
     // Metodos da funcionalidade "tocando"
     Musica proximaMusica();
 
     // Impressão com recursão
     void imprimir();
-    // REVISAR <MUSICA>
+    //Chamado pela função imprimir()
     void impressaoRecursiva(No<Musica> *celula);
 };
 

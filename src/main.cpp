@@ -7,30 +7,24 @@ using namespace std;
 #include "Playlist.h"
 
 /**
- * @brief Função voltar ao menu principal.
- *
- */
-void voltar()
-{
-    // checar erros
-    return;
-}
-
-/**
  * @brief Pedir informações de uma música para o usuário.
  *
  * @return a musica que o usuário informou.
  */
 Musica pedirMusica()
 {
-    string nome;
-    string artista;
-
-    cout << "Insira o nome da música:" << endl;
-    getline(cin, nome);
-
+    string nome, artista;
+    cout << "Insira o nome da música: " << endl;
+    while (getline(cin, nome))
+    {
+        if (nome != "")
+        {
+            break;
+        }
+    }
+    
     cout << "Insira o artista:" << endl;
-    getline(cin, nome);
+    getline(cin, artista);
 
     Musica musica(nome, artista);
 
@@ -45,7 +39,7 @@ void cadastrarMusica(Lista<Musica> *listaMusicasCadastradas)
 {
     No<Musica> *listaTemp = new No<Musica>;
     listaTemp = listaMusicasCadastradas->cabeca;
-    
+
     Musica musicaNova;
     musicaNova = pedirMusica();
 
@@ -174,7 +168,7 @@ void gerenciarMusicas(Lista<Musica> *listaMusicasCadastradas, Lista<Playlist> *l
 
     do
     {
-        cout << "MENU! O que você deseja fazer? (Digite o número apenas)" << endl;
+        cout << "MENU! O que voce deseja fazer? (Digite o numero apenas)" << endl;
         cout << "1 - Adicionar musicas" << endl;
         cout << "2 - Remover musicas" << endl;
         cout << "3 - Listar musicas" << endl;
@@ -195,7 +189,7 @@ void gerenciarMusicas(Lista<Musica> *listaMusicasCadastradas, Lista<Playlist> *l
             listarMusicas(listaMusicasCadastradas);
             break;
         case 4:
-            voltar();
+            return;
             break;
         default:
             cout << "Digite uma opção válida!" << endl;
@@ -266,7 +260,7 @@ void gerenciarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica
 
     do
     {
-        cout << "MENU! O que você deseja fazer? (Digite o número apenas)" << endl;
+        cout << "MENU! O que voce deseja fazer? (Digite o numero apenas)" << endl;
         cout << "1 - Adicionar playlists" << endl;
         cout << "2 - Remover playlists" << endl;
         cout << "3 - Listar playlists" << endl;
@@ -299,7 +293,7 @@ void gerenciarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica
             listarPlaylists(listaPlaylistsCadastradas);
             break;
         case 4:
-            voltar();
+            return;
             break;
         default:
             cout << "Digite uma opção válida!" << endl;
@@ -327,7 +321,7 @@ void estaTocandoAgora(Lista<Playlist> *listaPlaylistsCadastradas, int playlistTo
 /**
  * @brief Solicita que o usuário escolha uma playlist para ser tocada.
  * @param listaPlaylistsCadastradas Ponteiro para a lista de playlists cadastradas.
- * @details Esta função apresenta um menu com as playlists cadastradas e solicita ao usuário 
+ * @details Esta função apresenta um menu com as playlists cadastradas e solicita ao usuário
  * que escolha uma opção a partir deste menu.
  * @return O índice da playlist escolhida pelo usuário.
  */
@@ -342,6 +336,10 @@ int escolherPlaylist(Lista<Playlist> *listaPlaylistsCadastradas)
 
     cin >> playlistEscolhida;
     playlistEscolhida--;
+
+    if (playlistEscolhida < 0 || playlistEscolhida >= listaPlaylistsCadastradas->tamanho) {
+        return -1;
+    }
 
     cout << listaPlaylistsCadastradas->buscarPorIndice(playlistEscolhida)->getData().getNome() << " está tocando agora." << endl;
 
@@ -474,10 +472,14 @@ void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
     if (musicaIndice == indiceNovo)
     {
         return;
-    }else if(listaPlaylists->buscarPorIndice(playlistEscolhida)->getData().getLista()->tamanho <= musicaIndice){
+    }
+    else if (listaPlaylists->buscarPorIndice(playlistEscolhida)->getData().getLista()->tamanho <= musicaIndice)
+    {
         cout << "Indice de música inválido." << endl;
         return;
-    }else if(listaPlaylists->buscarPorIndice(playlistEscolhida)->getData().getLista()->tamanho <= indiceNovo){
+    }
+    else if (listaPlaylists->buscarPorIndice(playlistEscolhida)->getData().getLista()->tamanho <= indiceNovo)
+    {
         cout << "Indice novo para música é invalido." << endl;
         return;
     }
@@ -537,9 +539,10 @@ void gerenciarMusicasEmPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lis
     cin >> playlistEscolhida;
     playlistEscolhida--;
 
-    if(listaPlaylistsCadastradas->tamanho <= playlistEscolhida){
+    if (listaPlaylistsCadastradas->tamanho <= playlistEscolhida)
+    {
         cout << "Essa playlist não existe." << endl;
-        voltar();
+        return;
     }
 
     // Menu para alterar playlist escolhida
@@ -547,8 +550,8 @@ void gerenciarMusicasEmPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lis
 
     do
     {
-        cout << "MENU! O que você deseja fazer? (Digite o número apenas)" << endl;
-        cout << "1 - Adicionar musicas à playlist" << endl;
+        cout << "MENU! O que voce deseja fazer? (Digite o numero apenas)" << endl;
+        cout << "1 - Adicionar musicas a playlist" << endl;
         cout << "2 - Remover musicas da playlista" << endl;
         cout << "3 - Listar musicas da playlist" << endl;
         cout << "4 - Mover musica da playlist" << endl;
@@ -571,7 +574,7 @@ void gerenciarMusicasEmPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lis
             moverMusicaPlaylist(listaPlaylistsCadastradas, playlistEscolhida);
             break;
         case 5:
-            voltar();
+            return;
             break;
         default:
             cout << "Digite uma opção válida!" << endl;
@@ -583,7 +586,7 @@ void gerenciarMusicasEmPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lis
 
 /**
  * @brief Encerra o programa.
- * 
+ *
  */
 void sair()
 {
@@ -649,7 +652,7 @@ int main(int argc, char *argv[])
             playlistTocando = escolherPlaylist(listaPlaylistsCadastradas);
             break;
         case 5:
-            /** Caso o usuário não escolha uma playlist irá tocar a primeira cadastrada.*/ 
+            /** Caso o usuário não escolha uma playlist irá tocar a primeira cadastrada.*/
             estaTocandoAgora(listaPlaylistsCadastradas, playlistTocando);
             break;
         case 6:

@@ -624,7 +624,7 @@ int main(int argc, char *argv[])
 
     do /**< Loop exibe o menu até que o usuário selecione a opção "Sair"*/
     {
-        cout << "MENU! O que voce deseja fazer? (Digite o numero apenas)" << endl;
+        cout << "MENU! O que você deseja fazer? (Digite o numero apenas)" << endl;
         cout << "1 - Gerenciar musicas" << endl;
         cout << "2 - Gerenciar playlists" << endl;
         cout << "3 - Gerenciar musicas em playlists" << endl;

@@ -14,17 +14,25 @@ using std::string;
 Playlist::Playlist(string n)
 {
     this->nome = n;
-    this->lista = new ListaMusica();
+    this->lista = new ListaMusica<Musica>();
     this->musicaTocando = nullptr;
 }
+
+Playlist::Playlist() {}
 
 Playlist::~Playlist()
 {
 }
 
 // Gets
-string Playlist::getNome() {
+string Playlist::getNome()
+{
     return nome;
+}
+
+ListaMusica<Musica> *Playlist::getLista()
+{
+    return lista;
 }
 
 // CRUD
@@ -77,7 +85,7 @@ void Playlist::imprimir()
     return;
 }
 
-void Playlist::impressaoRecursiva(No *celula)
+void Playlist::impressaoRecursiva(No<Musica> *celula)
 {
     cout << "Título da música:" << celula->data.getTitulo() << endl
          << "Artista:" << celula->data.getArtista() << endl;

@@ -3,18 +3,24 @@
 
 #include "Musica.h"
 
+template <typename T>
 class No
 {
 public:
-    Musica data;
+    T data;
     No *proximo;
 
+public:
     // Construtores
-    No(Musica data);
-    No();
+    No(T data)
+    {
+        this->data = data;
+        No *proximo = nullptr;
+    }
+    No() {}
 
     // Gets
-    Musica getMusica();
+    T getData() { return data; }
 };
 
 #endif;
@@ -30,3 +36,23 @@ public:
 // Sets
     void setProxima(No *);
     */
+
+/*
+// Destrutores
+No::~No() {}
+
+// Gets
+Musica No::getMusica() { return data; }
+
+No *No::getProxima() { return proxima; }
+
+// Sets
+void No::setProxima(No *p)
+{
+ proxima = p;
+}
+
+void inserir() {}
+void remover(No, No)
+{
+}*/

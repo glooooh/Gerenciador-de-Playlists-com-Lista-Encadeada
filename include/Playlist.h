@@ -7,8 +7,8 @@ class Playlist
 {
 private:
     string nome;
-    ListaMusica *lista;
-    No *musicaTocando;
+    ListaMusica<Musica> *lista;
+    No<Musica> *musicaTocando;
 
 public:
     // Construtores e desconstrutores
@@ -16,19 +16,22 @@ public:
     Playlist();
     ~Playlist();
 
-    //Gets
+    // Gets
     string getNome();
+    // REVISAR <MUSICA>
+    ListaMusica<Musica> *getLista();
 
     // CRUD
     bool adicionarMusica(Musica);
-    bool removerMusica(int); //por índice ou música?
+    bool removerMusica(int); // por índice ou música?
 
     // Metodos da funcionalidade "tocando"
     Musica proximaMusica();
 
     // Impressão com recursão
     void imprimir();
-    void impressaoRecursiva(No* celula);
+    // REVISAR <MUSICA>
+    void impressaoRecursiva(No<Musica> *celula);
 };
 
 // a) Crie os construtores e destrutores correspondentes à classe

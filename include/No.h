@@ -24,35 +24,3 @@ public:
 };
 
 #endif;
-
-// Destrutores
-//    ~No();
-
-/*
-// Gets
-    Musica getMusica();
-    No *getProxima();
-
-// Sets
-    void setProxima(No *);
-    */
-
-/*
-// Destrutores
-No::~No() {}
-
-// Gets
-Musica No::getMusica() { return data; }
-
-No *No::getProxima() { return proxima; }
-
-// Sets
-void No::setProxima(No *p)
-{
- proxima = p;
-}
-
-void inserir() {}
-void remover(No, No)
-{
-}*/

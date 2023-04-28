@@ -1,13 +1,13 @@
 #include <string>
 using namespace std;
 
-#include "ListaMusica.h"
+#include "Lista.h"
 
 class Playlist
 {
 private:
     string nome;
-    ListaMusica<Musica> *lista;
+    Lista<Musica> *lista;
     No<Musica> *musicaTocando;
 
 public:
@@ -19,7 +19,7 @@ public:
     // Gets
     string getNome();
     // REVISAR <MUSICA>
-    ListaMusica<Musica> *getLista();
+    Lista<Musica> *getLista();
 
     // CRUD
     bool adicionarMusica(Musica);

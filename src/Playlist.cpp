@@ -14,7 +14,7 @@ using std::string;
 Playlist::Playlist(string n)
 {
     this->nome = n;
-    this->lista = new ListaMusica<Musica>();
+    this->lista = new Lista<Musica>();
     this->musicaTocando = nullptr;
 }
 
@@ -30,7 +30,7 @@ string Playlist::getNome()
     return nome;
 }
 
-ListaMusica<Musica> *Playlist::getLista()
+Lista<Musica> *Playlist::getLista()
 {
     return lista;
 }

@@ -8,7 +8,7 @@ using namespace std;
 #include "No.h"
 
 template <typename T>
-class ListaMusica
+class Lista
 {
 public:
     No<T> *cabeca;
@@ -17,14 +17,14 @@ public:
 
 public:
     // Construtores e desconstrutores
-    ListaMusica()
+    Lista()
     {
         this->cabeca = nullptr;
         this->cauda = nullptr;
         this->tamanho = 0;
     }
 
-    ~ListaMusica()
+    ~Lista()
     {
         cout << "CAIU" << endl;
     }

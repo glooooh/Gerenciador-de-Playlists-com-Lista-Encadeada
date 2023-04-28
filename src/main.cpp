@@ -28,7 +28,7 @@ Musica pedirMusica()
 }
 
 // Adiciona música a playlist
-void adicionarMusicaPlaylist(ListaMusica<Playlist> *listaPlaylist, ListaMusica<Musica> *listaMusicasCadastradas, int i)
+void adicionarMusicaPlaylist(Lista<Playlist> *listaPlaylist, Lista<Musica> *listaMusicasCadastradas, int i)
 {
     // Receber música nova dentro da função !!!!!!!!!!!!!!!!!!!!!!
 
@@ -67,9 +67,9 @@ void adicionarMusicaPlaylist(ListaMusica<Playlist> *listaPlaylist, ListaMusica<M
 }
 
 // Remover musica da playlist
-void removerMusicaPlaylist(ListaMusica<Playlist> *listaPlaylists, int playlistEscolhida)
+void removerMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
 {
-    ListaMusica<Musica> *listaMusicaTemporaria = new ListaMusica<Musica>;
+    Lista<Musica> *listaMusicaTemporaria = new Lista<Musica>;
     No<Musica> *noTemp = new No<Musica>;
 
     bool removidoDePlaylist = false;
@@ -109,13 +109,13 @@ void removerMusicaPlaylist(ListaMusica<Playlist> *listaPlaylists, int playlistEs
 }
 
 // Listar músicas da playlist
-void listarMusicasPlaylist(ListaMusica<Playlist> *listaPlaylists, int playlistEscolhida)
+void listarMusicasPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
 {
     listaPlaylists->buscarPorIndice(playlistEscolhida)->data.imprimir();
 }
 
 // Listar músicas da playlist
-void moverMusicaPlaylist(ListaMusica<Playlist> *listaPlaylists, int playlistEscolhida)
+void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
 {
     int musicaIndice, indiceNovo;
 
@@ -172,7 +172,7 @@ void moverMusicaPlaylist(ListaMusica<Playlist> *listaPlaylists, int playlistEsco
     }
 }
 
-void gerenciarMusicasEmPlaylists(ListaMusica<Playlist> *listaPlaylistsCadastradas, ListaMusica<Musica> *listaMusicasCadastradas)
+void gerenciarMusicasEmPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica> *listaMusicasCadastradas)
 {
     int playlistEscolhida;
 
@@ -222,7 +222,7 @@ void gerenciarMusicasEmPlaylists(ListaMusica<Playlist> *listaPlaylistsCadastrada
     } while (continuar);
 }
 
-void cadastrarMusica(ListaMusica<Musica> *listaMusicasCadastradas)
+void cadastrarMusica(Lista<Musica> *listaMusicasCadastradas)
 {
     No<Musica> *listaTemp = new No<Musica>;
     listaTemp = listaMusicasCadastradas->cabeca;
@@ -252,11 +252,11 @@ void cadastrarMusica(ListaMusica<Musica> *listaMusicasCadastradas)
     return;
 }
 
-void removerMusica(ListaMusica<Playlist> *listaPlaylists, ListaMusica<Musica> *listaMusicasCadastradas)
+void removerMusica(Lista<Playlist> *listaPlaylists, Lista<Musica> *listaMusicasCadastradas)
 {
     bool removidoDePlaylist = false;
     No<Musica> *noTemp = new No<Musica>;
-    ListaMusica<Musica> *listaMusicaTemporaria = new ListaMusica<Musica>;
+    Lista<Musica> *listaMusicaTemporaria = new Lista<Musica>;
 
     Musica musicaRemovida;
     musicaRemovida = pedirMusica();
@@ -318,7 +318,7 @@ void removerMusica(ListaMusica<Playlist> *listaPlaylists, ListaMusica<Musica> *l
     return;
 }
 
-void listarMusicas(ListaMusica<Musica> *listaMusicasCadastradas)
+void listarMusicas(Lista<Musica> *listaMusicasCadastradas)
 {
     No<Musica> *listaTemp = new No<Musica>;
     listaTemp = listaMusicasCadastradas->cabeca;
@@ -333,7 +333,7 @@ void listarMusicas(ListaMusica<Musica> *listaMusicasCadastradas)
     return;
 }
 
-void gerenciarMusicas(ListaMusica<Musica> *listaMusicasCadastradas, ListaMusica<Playlist> *listaPlaylists)
+void gerenciarMusicas(Lista<Musica> *listaMusicasCadastradas, Lista<Playlist> *listaPlaylists)
 {
     int continuar = 1;
 
@@ -370,7 +370,7 @@ void gerenciarMusicas(ListaMusica<Musica> *listaMusicasCadastradas, ListaMusica<
     } while (continuar);
 }
 
-void adicionarPlaylist(ListaMusica<Playlist> *listaPlaylistsCadastradas)
+void adicionarPlaylist(Lista<Playlist> *listaPlaylistsCadastradas)
 {
     string nome;
 
@@ -382,12 +382,12 @@ void adicionarPlaylist(ListaMusica<Playlist> *listaPlaylistsCadastradas)
     listaPlaylistsCadastradas->inserir(playlistNova);
 }
 
-void removerPlaylist(ListaMusica<Playlist> *listaPlaylistsCadastradas, int i)
+void removerPlaylist(Lista<Playlist> *listaPlaylistsCadastradas, int i)
 {
     listaPlaylistsCadastradas->remover(i);
 }
 
-void listarPlaylists(ListaMusica<Playlist> *listaPlaylistsCadastradas)
+void listarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas)
 {
     No<Playlist> *listaTemp = new No<Playlist>;
     listaTemp = listaPlaylistsCadastradas->cabeca;
@@ -402,7 +402,7 @@ void listarPlaylists(ListaMusica<Playlist> *listaPlaylistsCadastradas)
     return;
 }
 
-void gerenciarPlaylists(ListaMusica<Playlist> *listaPlaylistsCadastradas, ListaMusica<Musica> *listaMusicasCadastradas)
+void gerenciarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica> *listaMusicasCadastradas)
 {
     int playlistEscolhida;
 
@@ -454,7 +454,7 @@ void gerenciarPlaylists(ListaMusica<Playlist> *listaPlaylistsCadastradas, ListaM
     } while (continuar);
 }
 
-void estaTocandoAgora(ListaMusica<Playlist> *listaPlaylistsCadastradas, int playlistTocando)
+void estaTocandoAgora(Lista<Playlist> *listaPlaylistsCadastradas, int playlistTocando)
 {
     Musica musicaTocando;
     musicaTocando = listaPlaylistsCadastradas->buscarPorIndice(playlistTocando)->data.proximaMusica();
@@ -462,7 +462,7 @@ void estaTocandoAgora(ListaMusica<Playlist> *listaPlaylistsCadastradas, int play
     cout << "Música tocando agora: " << musicaTocando.getTitulo() << endl;
 }
 
-int escolherPlaylist(ListaMusica<Playlist> *listaPlaylistsCadastradas)
+int escolherPlaylist(Lista<Playlist> *listaPlaylistsCadastradas)
 {
     int playlistEscolhida;
 
@@ -488,12 +488,12 @@ void sair()
 int main(int argc, char *argv[])
 {
     // Declarando a variavel da lista de músicas cadastradas
-    ListaMusica<Musica> *listaMusicasCadastradas;
-    listaMusicasCadastradas = new ListaMusica<Musica>;
+    Lista<Musica> *listaMusicasCadastradas;
+    listaMusicasCadastradas = new Lista<Musica>;
 
     // Declarando a variável da lista de playlists cadastradas
-    ListaMusica<Playlist> *listaPlaylistsCadastradas;
-    listaPlaylistsCadastradas = new ListaMusica<Playlist>;
+    Lista<Playlist> *listaPlaylistsCadastradas;
+    listaPlaylistsCadastradas = new Lista<Playlist>;
 
     // MENU
 

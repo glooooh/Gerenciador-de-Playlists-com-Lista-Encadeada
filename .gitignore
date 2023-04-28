@@ -10,3 +10,4 @@ build\Makefile
 Doxyfile.in
 CMakeLists.txt
 Doxyfile
+.vscode

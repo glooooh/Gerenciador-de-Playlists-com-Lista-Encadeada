@@ -46,4 +46,4 @@ public:
     T getData() { return data; }
 };
 
-#endif;
+#endif

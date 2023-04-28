@@ -1,0 +1,9 @@
+build/CMakeFiles
+build/html
+build/cmake_install.cmake
+build/CMakeCache.txt
+build/CMakeDoxyfile.in
+build/CMakeDoxygenDefaults.cmake
+build/Doxyfile
+build/Doxyfile.docs
+build/Makefile

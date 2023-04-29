@@ -29,10 +29,13 @@ public:
 
     // Destrutor
     ~Playlist();
+    void limpar();
 
     // Gets
     string getNome();
     Lista<Musica> *getLista();
+
+    void setNome(string);
 
     // CRUD
     bool adicionarMusica(Musica);

@@ -16,23 +16,31 @@ using namespace std;
  * @param nome é o nome da playlist.
  */
 Playlist::Playlist(string n)
-{
+{   
     this->nome = n;
     this->lista = new Lista<Musica>();
-    musicaTocando = 0;
+    this->musicaTocando = 0;
 }
 
 /**
  * @brief Construtor padrão da classe Playlist.
  */
-Playlist::Playlist() {}
+Playlist::Playlist() {
+    this->nome = "";
+    this->lista = new Lista<Musica>();
+    musicaTocando = 0;
+}
 
 /**
  * @brief Destrutor da classe Playlist.
  */
 Playlist::~Playlist()
 {
-    delete lista;
+    
+}
+
+void Playlist::limpar() {
+    this->lista->~Lista();
 }
 
 /**
@@ -51,6 +59,14 @@ string Playlist::getNome()
 Lista<Musica> *Playlist::getLista()
 {
     return lista;
+}
+
+/**
+ * @brief Define um nome para a playlist.
+ */
+void Playlist::setNome(string n)
+{
+    nome = n;
 }
 
 /**
@@ -112,7 +128,7 @@ void Playlist::imprimir()
 {
     if (this->lista->cabeca == nullptr)
     {
-        cout << "A Playlist está vazia!" << endl;
+        cout << "A Playlist esta vazia!" << endl;
         return;
     }
 

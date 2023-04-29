@@ -15,8 +15,8 @@ using namespace std;
  */
 Musica::Musica(string t, string a)
 {
-    titulo = t;
-    artista = a;
+    this->titulo = t;
+    this->artista = a;
 }
 
 /**

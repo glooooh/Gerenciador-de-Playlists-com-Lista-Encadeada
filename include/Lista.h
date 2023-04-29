@@ -42,26 +42,35 @@ public:
      * @brief Destrutor da classe Lista.
      *
      */
-    ~Lista()
+    virtual ~Lista()
     {
-        // No<T> *atual = cabeca;
-        // while (atual != nullptr)
-        // {
-        //     No<T> *prox = atual->prox;
-        //     delete atual;
-        //     atual = prox;
-        // }
+        No<T> *atual;
+        No<T> *prox;
+        atual = this->cabeca;
+        while (atual != nullptr)
+        {
+            prox = atual->proximo;
+            delete atual;
+            atual = prox;
+        }
     }
 
     /**
      * @brief Insere um novo elemento na lista.
      *
      * @param data O dado a ser inserido na lista.
+     * @details Verifica se a lista está vazia.
+     * Se sim, a cabeça e a cauda da lista apontam para o novo nó.
+     * Caso contrário, o ponteiro 'próximo' do nó que atualmente é a cauda passa a apontar para o novo nó
+     * e a cauda é atualizada para apontar para o novo nó.
+     * Após a inserção do novo nó na lista, o tamanho é atualizado.
      */
     void inserir(T data)
     {
+        /// Cria um novo nó.
         No<T> *nova = new No<T>(data);
 
+        // Verificar se a lista está vazia.
         if (this->cauda == nullptr)
         {
             this->cabeca = nova;
@@ -72,6 +81,8 @@ public:
             this->cauda->proximo = nova;
             this->cauda = nova;
         }
+
+        // Atualiza o tamanho da lista.
         this->tamanho++;
     }
 
@@ -83,65 +94,76 @@ public:
      */
     bool remover(int indiceParaRemover)
     {
-        No<T> *noAtual, *noProximo, *noExcluido;
-        noAtual = this->cabeca;
-        noProximo = noAtual->proximo;
-
         // checa se a lista tem o tamanho menor que o índice
-        if (indiceParaRemover > this->tamanho - 1)
+        if (indiceParaRemover >= this->tamanho)
         {
             return false;
         }
 
-        // caso o ínice excluído seja a cabeça
-        if (indiceParaRemover == 0)
+        No<T> *noAtual, *noProximo, *noExcluido;
+        noAtual = this->cabeca;
+
+        // Caso a lista possua apenas um nó, atualiza a cauda para nullptr
+        if (this->tamanho == 1)
         {
+            cout << "tamanho 1" << endl;
+            noExcluido = this->cabeca;
+            this->cabeca = nullptr;
+            this->cauda = nullptr;
+        }
+
+        // caso o índice excluído seja a cabeça
+        else if (indiceParaRemover == 0)
+        {
+            cout << "cabeca" << endl;
             // Definino que o nó a ser excluído é a cabeça
             noExcluido = this->cabeca;
             // Substituindo endereço da cabeça da lista
             this->cabeca = this->cabeca->proximo;
 
-            // liberando célula desejada
-            delete noExcluido;
-            this->tamanho--;
-
-            return true;
+            // caso a lista tenha apenas um elemento, atualiza a cauda para nullptr
+            if (this->tamanho == 1)
+            {
+                this->cauda = nullptr;
+            }
         }
 
         // caso o índice excluído seja a cauda
-        if (indiceParaRemover == this->tamanho - 1)
+        else if (indiceParaRemover == this->tamanho - 1)
         {
-            // alterando endereço da célula anterior
-            for (int i = 0; i != indiceParaRemover - 1; i++)
+            cout << "cauda" << endl;
+
+            // percorre a lista até o penúltimo nó.
+            while (noAtual->proximo != this->cauda)
             {
                 noAtual = noAtual->proximo;
             }
 
+            // O ponteiro 'noExcluido' é atualizado para apontar ao nó que será excluído.
+            noExcluido = noAtual->proximo;
+            // O ponteiro 'proximo' de noAtual é atualizado para apontar para nullptr.
             noAtual->proximo = nullptr;
-
-            // liberando célula desejada
-            noExcluido = this->cauda;
-            delete noExcluido;
-            this->tamanho--;
-
-            // alterando a cauda da lista para penúltima célula
+            // O ponteiro 'cauda' é atualizado para a nova cauda.
             this->cauda = noAtual;
-
-            return true;
         }
-
-        // loop se repete até achar o indíce anterior ao que será excluído
-        for (int i = 0; i != indiceParaRemover - 1; i++)
+        else
         {
-            noAtual = noAtual->proximo;
             noProximo = noAtual->proximo;
+            cout << "resto" << endl;
+            // loop se repete até achar o indíce anterior ao que será excluído
+            for (int i = 0; i != indiceParaRemover - 1; i++)
+            {
+                noAtual = noAtual->proximo;
+                noProximo = noAtual->proximo;
+            }
+
+            // altera o endereço armazenado no índice para pular o que foi excluído
+            noAtual->proximo = noProximo->proximo;
+
+            // libera o espaço do índice que será excluído
+            noExcluido = noProximo;
         }
 
-        // altera o endereço armazenado no índice para pular o que foi excluído
-        noAtual->proximo = noProximo->proximo;
-
-        // libera o espaço do índice que será excluído
-        noExcluido = noProximo;
         delete noExcluido;
         this->tamanho--;
 

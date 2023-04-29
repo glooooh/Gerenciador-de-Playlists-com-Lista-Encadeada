@@ -11,3 +11,5 @@ Doxyfile.in
 CMakeLists.txt
 Doxyfile
 .vscode/
+build/compile_commands.json
+build/.cmake/

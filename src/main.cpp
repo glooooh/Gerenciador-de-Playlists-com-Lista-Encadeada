@@ -755,19 +755,15 @@ int main(int argc, char *argv[])
     listaMusicasCadastradas->inserir(Musica("Demons", "Imagine Dragons"));
     listaMusicasCadastradas->inserir(Musica("Bird", "Imagine Dragons"));
 
-    Lista<int> *lista = new Lista<int>;
-    lista->inserir(1);
     /**
      * Insere uma playlist pré-definida na lista de playlists cadastradas
      */
-    Playlist playlistNova("Playlist de Gloria");
-    listaPlaylistsCadastradas->inserir(playlistNova);
-    playlistNova.setNome("Playlist de Marcos");
-    listaPlaylistsCadastradas->inserir(playlistNova);
-    // listaPlaylistsCadastradas->inserir(Playlist("Playlist de Gloria"));
-    // listaPlaylistsCadastradas->inserir(Playlist("Playlist Marcos"));
-
-    listaPlaylistsCadastradas->remover(1);
+    // Playlist playlistNova("Playlist de Gloria");
+    // listaPlaylistsCadastradas->inserir(playlistNova);
+    // playlistNova.setNome("Playlist de Marcos");
+    // listaPlaylistsCadastradas->inserir(playlistNova);
+    listaPlaylistsCadastradas->inserir(Playlist("Playlist de Gloria"));
+    listaPlaylistsCadastradas->inserir(Playlist("Playlist Marcos"));
 
     /**
      * Insere valores pré-definidos nas playlists criadas
@@ -783,6 +779,9 @@ int main(int argc, char *argv[])
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Natural", "Imagine Dragons"));
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Demons", "Imagine Dragons"));
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Bird", "Imagine Dragons"));
+
+    // TESTE:
+    // listaPlaylistsCadastradas->remover(1);
 
     // MENU
 

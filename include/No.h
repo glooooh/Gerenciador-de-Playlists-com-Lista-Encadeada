@@ -28,13 +28,13 @@ public:
      * 
      * Inicializa o ponteiro de proximo como nulo.
      */
-    // No(T data)
-    // {
-    //     this->data = data;
-    //     No *proximo = nullptr;
-    // }
+    No(T data)
+    {
+        this->data = data;
+        No *proximo = nullptr;
+    }
 
-    No(T data) : data(data), proximo(nullptr) {}
+    // No(T data) : data(data), proximo(nullptr) {}
 
     /**
      * @brief Construtor padrão da classe No.

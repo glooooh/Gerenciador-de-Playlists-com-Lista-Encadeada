@@ -1,10 +1,15 @@
+/**
+ * @file main.cpp
+ * @brief Arquivo principal do programa.
+*/
+
 #include <iostream>
 #include <string>
 #include <locale>
 
 using namespace std;
 
-#include "Playlist.h"
+#include "Playlist.h" /**< Inclui a classe Playlist. */
 
 /**
  * @brief Pedir informações de uma música para o usuário.
@@ -73,11 +78,14 @@ void cadastrarMusica(Lista<Musica> *listaMusicasCadastradas)
     // cadastro da música no sistema
     listaMusicasCadastradas->inserir(musicaNova);
 
+    // Libera memória
     delete listaTemp;
 
+    // Mensagem de sucesso
     cout << "\nMusica cadastrada no sistema." << endl;
     system("pause");
     system("clear||cls");
+
     return;
 }
 
@@ -90,13 +98,20 @@ void removerMusica(Lista<Playlist> *listaPlaylists, Lista<Musica> *listaMusicasC
 {
     system("clear||cls");
 
+    /* Caso não exista músicas cadastradas retorna a função imediatamente*/
+    if (listaMusicasCadastradas->tamanho == 0)
+    {
+        cout << "Nao ha musicas para remover" << endl;
+        system("pause");
+        return;
+    }
+
     bool existe = false;
     bool removidoDePlaylist = false;
     No<Musica> *noTemp = nullptr;
     Lista<Musica> *listaMusicaTemporaria = nullptr;
 
     Musica musicaRemovida;
-
     cout << "Remova uma musica: \n"
          << endl;
     musicaRemovida = pedirMusica();
@@ -127,10 +142,10 @@ void removerMusica(Lista<Playlist> *listaPlaylists, Lista<Musica> *listaMusicasC
         // percorrendo todas as playlists
         for (int i = 0; i < listaPlaylists->tamanho; i++)
         {
-            // pegando lista ligada da playlist
+            // buscando lista ligada da playlist
             listaMusicaTemporaria = listaPlaylists->buscarPorIndice(i)->data.getLista();
 
-            // pegando o nó cabeca da lista ligada
+            // buscando o nó cabeca da lista ligada
             noTemp = listaMusicaTemporaria->cabeca;
 
             // percorrendo a lista ligada dentro de playlists
@@ -163,6 +178,7 @@ void removerMusica(Lista<Playlist> *listaPlaylists, Lista<Musica> *listaMusicasC
         cout << "\nMusica invalida!" << endl;
     }
 
+    // Libera memória
     delete listaMusicaTemporaria;
 
     system("pause");
@@ -183,18 +199,19 @@ void listarMusicas(Lista<Musica> *listaMusicasCadastradas)
     cout << "Musicas cadastradas no sistema:\n"
          << endl;
 
-    // percorre a lista encadeada de músicas já cadastradas e confere se a música a ser cadastrada
-    // ainda não existe na lista
+    // percorre a lista encadeada de músicas já cadastradas e imprime cada uma
     for (int i = 0; i < listaMusicasCadastradas->tamanho; i++)
     {
-        cout << i + 1 << ". " << listaTemp->data.getTitulo() << endl;
+        cout << i + 1 << ". " << listaTemp->data.getTitulo() << " de " << listaTemp->data.getArtista() << endl;
         listaTemp = listaTemp->proximo;
     }
 
+    // Libera memória
     delete listaTemp;
 
     system("pause");
     system("clear||cls");
+
     return;
 }
 
@@ -207,12 +224,15 @@ void listarMusicas(Lista<Musica> *listaMusicasCadastradas)
  */
 void gerenciarMusicas(Lista<Musica> *listaMusicasCadastradas, Lista<Playlist> *listaPlaylists)
 {
+    // Função Gerenciar Músicas
+
     system("clear||cls");
+
+    // Menu para gerenciar as músicas
     int continuar = 1;
 
     do
     {
-
         cout << "MENU!" << endl
              << "O que voce deseja fazer? (Digite o numero apenas)" << endl;
         cout << "1 - Adicionar musicas" << endl;
@@ -269,10 +289,13 @@ void adicionarPlaylist(Lista<Playlist> *listaPlaylistsCadastradas)
         }
     }
 
+    // Chama construtor de playlist
     Playlist playlistNova(nome);
 
+    // Insere a nova playlist na lista de playlists cadastradas
     listaPlaylistsCadastradas->inserir(playlistNova);
 
+    // Mensagem de sucesso
     cout << "Playlist adicionada no sistema" << endl;
     system("pause");
     system("clear||cls");
@@ -286,6 +309,16 @@ void adicionarPlaylist(Lista<Playlist> *listaPlaylistsCadastradas)
 void removerPlaylist(Lista<Playlist> *listaPlaylistsCadastradas, int indicePlaylistEscolhida)
 {
     system("clear||cls");
+
+    /* Caso não exista playlist cadastradas retorna a função imediatamente. */
+    if (listaPlaylistsCadastradas->tamanho == 0)
+    {
+        cout << "Nao ha playlists para remover" << endl;
+        system("pause");
+        return;
+    }
+
+    /* Verifica se o índice escolhido é válido. */
     if (indicePlaylistEscolhida >= listaPlaylistsCadastradas->tamanho || indicePlaylistEscolhida < 0)
     {
         cout << "========================" << endl;
@@ -298,6 +331,7 @@ void removerPlaylist(Lista<Playlist> *listaPlaylistsCadastradas, int indicePlayl
         listaPlaylistsCadastradas->buscarPorIndice(indicePlaylistEscolhida)->data.getLista()->~Lista();
         listaPlaylistsCadastradas->remover(indicePlaylistEscolhida);
 
+        // Mensagem de sucesso
         cout << "Playlist removida do sistema" << endl;
         system("pause");
         system("clear||cls");
@@ -312,8 +346,7 @@ void listarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas)
 {
     No<Playlist> *listaTemp = listaPlaylistsCadastradas->cabeca;
 
-    // percorre a lista encadeada de músicas já cadastradas e confere se a música a ser cadastrada
-    // ainda não existe na lista
+    // percorre a lista encadeada de playlists já cadastradas e imprime o nome de cada uma
     for (int i = 0; i < listaPlaylistsCadastradas->tamanho; i++)
     {
         cout << i + 1 << ". " << listaTemp->data.getNome() << endl;
@@ -331,10 +364,12 @@ void listarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas)
  */
 void gerenciarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica> *listaMusicasCadastradas)
 {
+    // Função Gerenciar Playlists
+
     system("clear||cls");
     int playlistEscolhida;
 
-    // Menu para alterar playlist escolhida
+    // Menu para gerenciar as playlists
     int continuar = 1;
 
     do
@@ -351,7 +386,6 @@ void gerenciarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica
         switch (continuar)
         {
         case 1:
-            // ainda não existe a função
             adicionarPlaylist(listaPlaylistsCadastradas);
             break;
         case 2:
@@ -400,8 +434,25 @@ void gerenciarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica
 void estaTocandoAgora(Lista<Playlist> *listaPlaylistsCadastradas, int playlistTocando)
 {
     system("clear||cls");
-    No<Musica> *celula;
-    celula = listaPlaylistsCadastradas->buscarPorIndice(playlistTocando)->data.proximaMusica();
+
+    No<Musica> *celula = NULL;
+
+    /** Verifica se há playlists cadastradas no sistema. */
+    if (listaPlaylistsCadastradas->tamanho != 0)
+    {
+        celula = listaPlaylistsCadastradas->buscarPorIndice(playlistTocando)->data.proximaMusica();
+    }
+
+    /** Verifica se a célula é NULL.
+     * 
+     * A célula pode ser igual a NULL por vários motivos, dentre eles:
+     * 1. Não há playlists cadastradas no sistema;
+     * 2. A playlist não possui nenhuma música;
+     * 3. Todas as músicas da playlists já foram tocadas e o usuário chegou ao fim dela.
+     * 
+     * Caso a célula seja NULL, imprime uma mensagem de erro "Nao ha uma proxima musica na fila.", 
+     * caso contrário imprime a música tocando atualmente.
+     */
     if (celula != NULL)
     {
         cout << "------------------------" << endl;
@@ -410,6 +461,13 @@ void estaTocandoAgora(Lista<Playlist> *listaPlaylistsCadastradas, int playlistTo
     }
     else
     {
+        cout << "----------------------------------" << endl;
+        cout << "Nao ha uma proxima musica na fila." << endl;
+        cout << "----------------------------------" << endl;
+
+        system("pause");
+        system("clear||cls");
+
         cout << "------------------------" << endl;
         cout << "Nenhuma musica tocando!" << endl;
         cout << "------------------------" << endl;
@@ -431,8 +489,8 @@ int escolherPlaylist(Lista<Playlist> *listaPlaylistsCadastradas)
     // imprimir playlists cadastradas
     listarPlaylists(listaPlaylistsCadastradas);
 
+    // Solicita o índice da playlist a ser tocada
     cout << "Digite o numero da playlist que deseja tocar: " << endl;
-
     cin >> playlistEscolhida;
     playlistEscolhida--;
 
@@ -491,11 +549,15 @@ void adicionarMusicaPlaylist(Lista<Playlist> *listaPlaylist, Lista<Musica> *list
     listaPlaylist->buscarPorIndice(indicePlaylist)->data.adicionarMusica(musicaNova);
     listaMusicasCadastradas->inserir(musicaNova);
 
+    // Libera memória
     delete listaTemp;
 
+    // Mensagem de sucesso
     cout << "Musica adicionada com sucesso." << endl;
+
     system("pause");
     system("clear||cls");
+
     return;
 }
 
@@ -507,22 +569,30 @@ void adicionarMusicaPlaylist(Lista<Playlist> *listaPlaylist, Lista<Musica> *list
  */
 void removerMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
 {
+    /* Caso não exista músicas cadastradas na playlist retorna a função imediatamente*/
+    if (listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista()->tamanho == 0)
+    {
+        cout << "Nao ha musicas para remover" << endl;
+        system("pause");
+        return;
+    }
+
     Lista<Musica> *listaMusicaTemporaria = nullptr;
     No<Musica> *noTemp = nullptr;
 
     bool removidoDePlaylist = false;
 
-    Musica musicaRemovida;
-
     system("clear||cls");
+
+    Musica musicaRemovida;
     cout << "Remover uma musica da playlist:\n"
          << endl;
     musicaRemovida = pedirMusica();
 
-    // pegando lista ligada de playlist
+    // buscando lista ligada de playlist
     listaMusicaTemporaria = listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista();
 
-    // pegando o nó cabeca da lista ligada
+    // buscando o nó cabeca da lista ligada
     noTemp = listaMusicaTemporaria->cabeca;
 
     // percorrendo a lista ligada dentro de playlists
@@ -542,7 +612,7 @@ void removerMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhid
         noTemp = noTemp->proximo;
     }
 
-    // aviso de que a música foi removida de tal playlist
+    // Caso a música tenha sido removida de alguma playlist imprime um aviso
     if (removidoDePlaylist)
     {
         cout << musicaRemovida.getTitulo() << " foi removido da playlist " << listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getNome() << endl;
@@ -553,10 +623,12 @@ void removerMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhid
         cout << "Musica nao encontrada." << endl;
     }
 
+    // Limpando memória
     delete listaMusicaTemporaria;
 
     system("pause");
     system("clear||cls");
+
     return;
 }
 
@@ -571,10 +643,14 @@ void listarMusicasPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhid
     system("clear||cls");
     cout << "Musicas da playlist:\n"
          << endl;
+
+    // Chama método que imprime a playlist
     listaPlaylists->buscarPorIndice(playlistEscolhida)->data.imprimir();
 
     system("pause");
     system("clear||cls");
+
+    return;
 }
 
 /**
@@ -589,16 +665,21 @@ void listarMusicasPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhid
  */
 void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
 {
-    cout << "Musicas da playlist: " << endl;
-    listarMusicasPlaylist(listaPlaylists, playlistEscolhida);
-
-    if (listaPlaylists->tamanho == 0)
+    /* Caso não exista músicas cadastradas na playlist retorna a função imediatamente. */
+    if (listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista()->tamanho == 0)
     {
+        cout << "Nao ha musicas para mover" << endl;
+        system("pause");
         return;
     }
 
-    int musicaIndice, indiceNovo;
+    /* Imprime a lista de músicas. */
+    cout << "Musicas da playlist: " << endl;
+    listarMusicasPlaylist(listaPlaylists, playlistEscolhida);
 
+    int musicaIndice, indiceNovo; /**< Índice atual da música a ser movida e o novo índice. */
+
+    /* Solicita os índices ao usuário. */
     cout << "\nDigite o numero da musica escolhida: " << endl;
     cin >> musicaIndice;
     musicaIndice--;
@@ -607,18 +688,21 @@ void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
     cin >> indiceNovo;
     indiceNovo--;
 
+    /* Caso o índice novo seja igual ao antigo retorna a função. */
     if (musicaIndice == indiceNovo)
     {
         return;
     }
-    else if (listaPlaylists->buscarPorIndice(playlistEscolhida)->getData().getLista()->tamanho <= musicaIndice)
+    /* Verifica se o índice atual é válido. */
+    else if (listaPlaylists->buscarPorIndice(playlistEscolhida)->getData().getLista()->tamanho <= musicaIndice && musicaIndice > 0)
     {
         cout << "Indice de musica invalido." << endl;
         system("pause");
         system("clear||cls");
         return;
     }
-    else if (listaPlaylists->buscarPorIndice(playlistEscolhida)->getData().getLista()->tamanho <= indiceNovo)
+    /* Verifica se o índice novo é válido. */
+    else if (listaPlaylists->buscarPorIndice(playlistEscolhida)->getData().getLista()->tamanho <= indiceNovo && indiceNovo > 0)
     {
         cout << "Indice de musica invalido." << endl;
         system("pause");
@@ -629,6 +713,7 @@ void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
     No<Musica> *noTemp = nullptr;
     No<Musica> *noMusicaMovida = nullptr;
 
+    /* Caso os dois índices fornecidos sejam diferentes de 0. */
     if (musicaIndice != 0 && indiceNovo != 0)
     {
         noTemp = listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista()->buscarPorIndice(musicaIndice - 1);
@@ -641,6 +726,7 @@ void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
         noTemp = listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista()->buscarPorIndice(indiceNovo - 1);
         noTemp->proximo = noMusicaMovida;
     }
+    /* Caso o índice novo for igual a 0. */
     if (indiceNovo == 0)
     {
         noTemp = listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista()->buscarPorIndice(musicaIndice - 1);
@@ -651,6 +737,7 @@ void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
 
         listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista()->cabeca = noMusicaMovida;
     }
+    /* Caso o índice atual for igual a 0. */
     if (musicaIndice == 0)
     {
         noMusicaMovida = listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista()->buscarPorIndice(musicaIndice);
@@ -661,6 +748,7 @@ void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
         noTemp->proximo = noMusicaMovida;
     }
 
+    /* Mensagem de sucesso. */
     cout << "Musica movida com sucesso." << endl;
     system("pause");
     system("clear||cls");
@@ -677,13 +765,25 @@ void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
  */
 void gerenciarMusicasEmPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica> *listaMusicasCadastradas)
 {
+    // Função Gerenciar Músicas em Playlists
+
     system("clear||cls");
+
+    /* Caso não exista playlist cadastrada retorna a função imediatamente*/
+    if (listaPlaylistsCadastradas->tamanho == 0)
+    {
+        cout << "Nao ha playlists para gerenciar" << endl;
+        system("pause");
+        return;
+    }
+
     int playlistEscolhida;
 
     cout << "Digite o numero da playlist que deseja gerenciar:\n " << endl;
-    // imprimir playlists cadastradas
+    /// imprimir playlists cadastradas.
     listarPlaylists(listaPlaylistsCadastradas);
 
+    /* Solicita aos usuários o índice de uma playlist. */
     cin >> playlistEscolhida;
     playlistEscolhida--;
 
@@ -696,7 +796,7 @@ void gerenciarMusicasEmPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lis
         return;
     }
 
-    // Menu para alterar playlist escolhida
+    // Menu para gerenciar as músicas da playlist escolhida
     int continuar = 1;
 
     do
@@ -746,22 +846,31 @@ void gerenciarMusicasEmPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lis
  */
 void sair(Lista<Musica> *listaMusicasCadastradas, Lista<Playlist> *listaPlaylistsCadastradas)
 {
-    // Verificar falhas no vazamento de memória
-    // Encerrar o programa
-    delete listaMusicasCadastradas;
-    delete listaPlaylistsCadastradas;
+    /* Libera a memória das listas. */
+    delete listaMusicasCadastradas; /**< Libera lista de músicas cadastradas*/
+
+    for (int i = 0; i < listaPlaylistsCadastradas->tamanho; i++)
+    {
+        listaPlaylistsCadastradas->buscarPorIndice(i)->data.getLista()->~Lista(); /**< Libera lista de músicas de todas as playlists cadastradas*/
+    }
+    delete listaPlaylistsCadastradas; /**< Libera lista de playlists cadastradas*/
+
+    /* Encerra o programa. */
     exit(0);
 }
 
+/**
+ * @brief Função principal do programa.
+ * 
+ * @return Valor inteiro indicando sucesso ou falha na execução do programa.
+*/
 int main(int argc, char *argv[])
 {
-    setlocale(LC_ALL, "");
+    setlocale(LC_ALL, ""); /**< Configura o idioma local. */
 
-    // Declarando a variavel da lista de músicas cadastradas
-    Lista<Musica> *listaMusicasCadastradas = new Lista<Musica>;
+    Lista<Musica> *listaMusicasCadastradas = new Lista<Musica>; /**< O Ponteiro da lista de músicas cadastradas.*/
 
-    // Declarando a variável da lista de playlists cadastradas
-    Lista<Playlist> *listaPlaylistsCadastradas = new Lista<Playlist>;
+    Lista<Playlist> *listaPlaylistsCadastradas = new Lista<Playlist>; /**< O Ponteiro da lista de playlists cadastradas.*/
 
     /**
      * Insere no sistema valores pré-definidos na lista de músicas cadastradas
@@ -785,10 +894,6 @@ int main(int argc, char *argv[])
     /**
      * Insere uma playlist pré-definida na lista de playlists cadastradas
      */
-    // Playlist playlistNova("Playlist de Gloria");
-    // listaPlaylistsCadastradas->inserir(playlistNova);
-    // playlistNova.setNome("Playlist de Marcos");
-    // listaPlaylistsCadastradas->inserir(playlistNova);
     listaPlaylistsCadastradas->inserir(Playlist("Playlist de Gloria"));
     listaPlaylistsCadastradas->inserir(Playlist("Playlist Marcos"));
 
@@ -807,13 +912,10 @@ int main(int argc, char *argv[])
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Demons", "Imagine Dragons"));
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Bird", "Imagine Dragons"));
 
-    // TESTE:
-    // listaPlaylistsCadastradas->remover(1);
+    /* MENU PRINCIPAL */
 
-    // MENU
-
-    int continuar = 1; /**< Variável que indica qual opção do menu foi escolhida pelo usuário. */
-    int playlistTocando = 0;
+    int continuar = 1;       /**< Variável que indica qual opção do menu foi escolhida pelo usuário. */
+    int playlistTocando = 0; /**< Variável que indica a playlist tocando atualmente. Caso o usuário não escolha uma playlist irá tocar a primeira cadastrada.*/
 
     do /**< Loop exibe o menu até que o usuário selecione a opção "Sair"*/
     {
@@ -843,7 +945,6 @@ int main(int argc, char *argv[])
             playlistTocando = escolherPlaylist(listaPlaylistsCadastradas);
             break;
         case 5:
-            /** Caso o usuário não escolha uma playlist irá tocar a primeira cadastrada.*/
             estaTocandoAgora(listaPlaylistsCadastradas, playlistTocando);
             break;
         case 6:

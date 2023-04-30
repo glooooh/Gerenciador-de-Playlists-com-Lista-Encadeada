@@ -8,9 +8,10 @@
 
 #include <string>
 #include <cstring>
-using namespace std;
 
-#include "No.h"
+#include "No.h" /**< Inclui a classe Nó. */
+
+using namespace std;
 
 /**
  * @brief Classe que representa uma lista encadeada.

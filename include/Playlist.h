@@ -7,9 +7,11 @@
 #define PLAYLIST_H
 
 #include <string>
-using namespace std;
 
-#include "Lista.h"
+#include "Lista.h"  /**< Inclui a classe Lista. */
+#include "Musica.h" /**< Inclui a classe Música. */
+
+using namespace std;
 
 /**
  * @class Playlist
@@ -35,8 +37,6 @@ public:
     string getNome();
     Lista<Musica> *getLista();
 
-    void setNome(string);
-
     // CRUD
     bool adicionarMusica(Musica);
     bool removerMusica(int);
@@ -46,7 +46,7 @@ public:
 
     // Impressão com recursão
     void imprimir();
-    // Chamado pela função imprimir()
+    // Chamado pela função 'imprimir'
     void impressaoRecursiva(No<Musica> *, int);
 };
 

@@ -6,8 +6,6 @@
 #ifndef NO_H
 #define NO_H
 
-#include "Musica.h"
-
 /**
  * @brief Classe que representa um nó de uma lista encadeada.
  *
@@ -23,9 +21,9 @@ public:
 public:
     /**
      * @brief Construtor da classe No.
-     * 
+     *
      * @param data Dado armazenao no nó.
-     * 
+     *
      * Inicializa o ponteiro de proximo como nulo.
      */
     No(T data)
@@ -34,21 +32,16 @@ public:
         No *proximo = nullptr;
     }
 
-    // No(T data) : data(data), proximo(nullptr) {}
-
     /**
      * @brief Construtor padrão da classe No.
      */
     No() {}
 
     /**
-     * @brief Destrutor da classe No.
-     * 
+     * @brief Destrutor padrão da classe No.
+     *
      */
-    ~No()
-    {
-        
-    }
+    ~No() {}
 
     /**
      * @brief Retorna o dado armazenado no Nó.

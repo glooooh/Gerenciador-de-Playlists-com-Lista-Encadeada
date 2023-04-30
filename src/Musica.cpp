@@ -4,7 +4,8 @@
  */
 
 #include <iostream>
-#include "Musica.h"
+
+#include "Musica.h" /**< Inclui a classe Música. */
 
 using namespace std;
 

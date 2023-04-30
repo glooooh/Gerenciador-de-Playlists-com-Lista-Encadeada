@@ -4,16 +4,14 @@
  */
 
 #include <iostream>
-#include <string>
-#include <cstring>
+
+#include "Playlist.h" /**< Inclui a classe Playlist. */
 
 using namespace std;
 
-#include "Playlist.h"
-
 /**
  * @brief Construtor da classe Playlist.
- * @param nome é o nome da playlist.
+ * @param n é o nome da playlist.
  */
 Playlist::Playlist(string n)
 {   
@@ -25,20 +23,16 @@ Playlist::Playlist(string n)
 /**
  * @brief Construtor padrão da classe Playlist.
  */
-Playlist::Playlist() {
-    this->nome = "";
-    this->lista = new Lista<Musica>();
-    musicaTocando = 0;
-}
+Playlist::Playlist() {}
 
 /**
  * @brief Destrutor da classe Playlist.
  */
-Playlist::~Playlist()
-{
-    
-}
+Playlist::~Playlist() {}
 
+/**
+ * @brief Limpa a lista de músicas da playlist.
+*/
 void Playlist::limpar() {
     this->lista->~Lista();
 }
@@ -62,21 +56,13 @@ Lista<Musica> *Playlist::getLista()
 }
 
 /**
- * @brief Define um nome para a playlist.
- */
-void Playlist::setNome(string n)
-{
-    nome = n;
-}
-
-/**
  * @brief Adiciona uma música à playlist.
  * @param musica é a música a ser adicionada.
  * @return true se a música foi adicionada com sucesso.
  */
-bool Playlist::adicionarMusica(Musica m)
+bool Playlist::adicionarMusica(Musica musica)
 {
-    this->lista->inserir(m);
+    this->lista->inserir(musica);
     return true;
 }
 
@@ -98,6 +84,7 @@ bool Playlist::removerMusica(int indice)
  */
 No<Musica> *Playlist::proximaMusica()
 {
+    // Verifica se a playlist possui músicas.
     if (this->lista->tamanho <= 0)
     {
         cout << "A PLAYLIST NAO POSSUI MUSICAS" << endl;
@@ -107,7 +94,8 @@ No<Musica> *Playlist::proximaMusica()
     }
 
     No<Musica> *celula = new No<Musica>;
-    // caso seja a primeira vez tocando a playlist ou a playlist chegou à última música
+
+    // Verifica se é a última música tocando.
     if (this->musicaTocando == this->lista->tamanho)
     {
         cout << "A PLAYLIST CHEGOU AO FIM!" << endl;
@@ -117,10 +105,12 @@ No<Musica> *Playlist::proximaMusica()
         return NULL;
     }
 
+    // Busca a música que está tocando pelo índice.
     celula = this->lista->buscarPorIndice(musicaTocando);
 
-    // padrão (existe uma próxima música e ela será tocada)
+    // Incrementa o índice.
     this->musicaTocando++;
+
     return celula;
 }
 
@@ -129,12 +119,14 @@ No<Musica> *Playlist::proximaMusica()
  */
 void Playlist::imprimir()
 {
+    // Verifica se a playlist está vazia
     if (this->lista->cabeca == nullptr)
     {
         cout << "A Playlist esta vazia!" << endl;
         return;
     }
-
+    
+    // Chama a função de impressão recursiva.
     impressaoRecursiva(this->lista->cabeca, 0);
 
     return;
@@ -143,13 +135,17 @@ void Playlist::imprimir()
 /**
  * @brief Função auxiliar para imprimir as músicas da playlist recursivamente.
  * @param celula é a célula atual da lista encadeada.
+ * @param indice é o índice correspondente à música sendo impressa.
  */
 void Playlist::impressaoRecursiva(No<Musica> *celula, int indice)
 {
+    // Imprime a música atual.
     cout << indice + 1 << ". '" << celula->data.getTitulo() << "' de " << celula->data.getArtista() << endl;
 
+    // Verifica se existe uma próxima música na lista
     if (celula->proximo != nullptr)
     {
+        // Incrementa o índice e utiliza recursão para imprimir a próxima música.
         indice++;
         impressaoRecursiva(celula->proximo, indice);
     }

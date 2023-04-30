@@ -7,8 +7,8 @@
 #define MUSICA_H
 
 #include <string>
-using namespace std;
 
+using namespace std;
 
 /**
  * @class Musica

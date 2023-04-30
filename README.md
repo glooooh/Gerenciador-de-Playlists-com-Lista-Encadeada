@@ -13,12 +13,12 @@ __Para acessar o programa:__
 
 Pronto, você já tem acesso ao programa :)
 
-__Quanto aos exemplos de entradas:__
+__Quanto aos exemplos de entradas:__ <br>
 O programa contém um menu principal que guia o usuário por outros menus e pelas funções da aplicação, portanto a navegação é bem simples.
-O Menu principal possui 3 opções para submenus: "Gerenciar musicas", "Gerenciar playlists" e "Gerenciar musicas em playlists". Cada função leva o usuário para um segundo menu correspondente à ação que o mesmo deseja realizar.
-Alem disso, o menu principal também conta com uma opção para "Selecione uma playlist para tocar" e outra "O que esta tocando agora?" que informa o usuário qual música está tocando no momento.
-Finalmente, o menu exibe a função "Sair", que encerra o programa.
-Para selecionar uma ação basta digitar o número ao lado da opção desejada e apertar a tecla 'enter'.
+O Menu principal possui 3 opções para submenus: "Gerenciar musicas", "Gerenciar playlists" e "Gerenciar musicas em playlists". Cada função leva o usuário para um segundo menu correspondente à ação que o mesmo deseja realizar.<br>
+Alem disso, o menu principal também conta com uma opção para "Selecione uma playlist para tocar" e outra "O que esta tocando agora?" que informa o usuário qual música está tocando no momento.<br>
+Finalmente, o menu exibe a função "Sair", que encerra o programa.<br>
+Para selecionar uma ação basta digitar o número ao lado da opção desejada e apertar a tecla 'enter'.<br><br>
 
 _Durante toda a execução do programa, são impressas instruções claras para o usuário de como interagir com a aplicação._
 

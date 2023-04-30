@@ -103,27 +103,18 @@ public:
         No<T> *noAtual, *noProximo, *noExcluido;
         noAtual = this->cabeca;
 
-        // Caso a lista possua apenas um nó, atualiza a cauda para nullptr
-        if (this->tamanho == 1)
-        {
-            cout << "tamanho 1" << endl;
-            noExcluido = this->cabeca;
-            this->cabeca = nullptr;
-            this->cauda = nullptr;
-        }
-
         // caso o índice excluído seja a cabeça
-        else if (indiceParaRemover == 0)
+        if (indiceParaRemover == 0)
         {
-            cout << "cabeca" << endl;
             // Definino que o nó a ser excluído é a cabeça
             noExcluido = this->cabeca;
             // Substituindo endereço da cabeça da lista
             this->cabeca = this->cabeca->proximo;
 
-            // caso a lista tenha apenas um elemento, atualiza a cauda para nullptr
+            // caso a lista tenha apenas um elemento, atualiza a cauda e a cabeça para nullptr
             if (this->tamanho == 1)
             {
+                this->cabeca = nullptr;
                 this->cauda = nullptr;
             }
         }
@@ -131,8 +122,6 @@ public:
         // caso o índice excluído seja a cauda
         else if (indiceParaRemover == this->tamanho - 1)
         {
-            cout << "cauda" << endl;
-
             // percorre a lista até o penúltimo nó.
             while (noAtual->proximo != this->cauda)
             {
@@ -149,7 +138,6 @@ public:
         else
         {
             noProximo = noAtual->proximo;
-            cout << "resto" << endl;
             // loop se repete até achar o indíce anterior ao que será excluído
             for (int i = 0; i != indiceParaRemover - 1; i++)
             {
@@ -199,8 +187,3 @@ public:
 };
 
 #endif
-
-// A QUESTÃO PEDE:
-// a) Crie métodos de inserção e remoção de elementos na lista
-// b) Crie métodos de busca e acesso à elementos na lista
-// c) Crie os construtores e destrutores correspondentes

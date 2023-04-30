@@ -96,29 +96,32 @@ bool Playlist::removerMusica(int indice)
  * @brief Toca a próxima música da playlist.
  * @return a próxima música da playlist.
  */
-void Playlist::proximaMusica()
+No<Musica> *Playlist::proximaMusica()
 {
     if (this->lista->tamanho <= 0)
     {
         cout << "A PLAYLIST NAO POSSUI MUSICAS" << endl;
-        return;
+        system("pause");
+        system("clear||cls");
+        return NULL;
     }
 
     No<Musica> *celula = new No<Musica>;
     // caso seja a primeira vez tocando a playlist ou a playlist chegou à última música
     if (this->musicaTocando == this->lista->tamanho)
     {
-        cout << "A PLAYLIST IRA RECOMECAR!" << endl;
+        cout << "A PLAYLIST CHEGOU AO FIM!" << endl;
         this->musicaTocando = 0;
+        system("pause");
+        system("clear||cls");
+        return NULL;
     }
 
     celula = this->lista->buscarPorIndice(musicaTocando);
 
-    cout << "Musica tocando agora: " << celula->data.getTitulo() << endl;
-
     // padrão (existe uma próxima música e ela será tocada)
     this->musicaTocando++;
-    return;
+    return celula;
 }
 
 /**

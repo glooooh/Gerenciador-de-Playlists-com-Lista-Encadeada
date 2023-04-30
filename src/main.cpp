@@ -19,7 +19,7 @@ using namespace std;
 Musica pedirMusica()
 {
     string nome, artista;
-    cout << "Insira o nome da música: " << endl;
+    cout << "Insira o nome da musica: " << endl;
     while (getline(cin, nome))
     {
         if (nome != "")
@@ -50,7 +50,7 @@ void cadastrarMusica(Lista<Musica> *listaMusicasCadastradas)
 {
     system("clear||cls");
 
-    No<Musica> *listaTemp = listaMusicasCadastradas->cabeca;
+    No<Musica> *noTemp = listaMusicasCadastradas->cabeca;
 
     Musica musicaNova;
     cout << "Cadastre uma musica: \n"
@@ -62,24 +62,21 @@ void cadastrarMusica(Lista<Musica> *listaMusicasCadastradas)
     for (int i = 0; i < listaMusicasCadastradas->tamanho; i++)
     {
         // comparação de titulo
-        if (listaTemp->data.getTitulo().compare(musicaNova.getTitulo()) == 0)
+        if (noTemp->data.getTitulo().compare(musicaNova.getTitulo()) == 0)
         {
             // comparação de artista
-            if (listaTemp->data.getArtista().compare(musicaNova.getArtista()) == 0)
+            if (noTemp->data.getArtista().compare(musicaNova.getArtista()) == 0)
             {
                 cout << "Cadastro invalido! Musica ja foi cadastrada anteriormente" << endl;
                 system("pause");
                 return;
             }
         }
-        listaTemp = listaTemp->proximo;
+        noTemp = noTemp->proximo;
     }
 
     // cadastro da música no sistema
     listaMusicasCadastradas->inserir(musicaNova);
-
-    // Libera memória
-    delete listaTemp;
 
     // Mensagem de sucesso
     cout << "\nMusica cadastrada no sistema." << endl;
@@ -178,9 +175,6 @@ void removerMusica(Lista<Playlist> *listaPlaylists, Lista<Musica> *listaMusicasC
         cout << "\nMusica invalida!" << endl;
     }
 
-    // Libera memória
-    delete listaMusicaTemporaria;
-
     system("pause");
     system("clear||cls");
 
@@ -193,7 +187,7 @@ void removerMusica(Lista<Playlist> *listaPlaylists, Lista<Musica> *listaMusicasC
  */
 void listarMusicas(Lista<Musica> *listaMusicasCadastradas)
 {
-    No<Musica> *listaTemp = listaMusicasCadastradas->cabeca;
+    No<Musica> *noTemp = listaMusicasCadastradas->cabeca;
 
     system("clear||cls");
     cout << "Musicas cadastradas no sistema:\n"
@@ -202,12 +196,9 @@ void listarMusicas(Lista<Musica> *listaMusicasCadastradas)
     // percorre a lista encadeada de músicas já cadastradas e imprime cada uma
     for (int i = 0; i < listaMusicasCadastradas->tamanho; i++)
     {
-        cout << i + 1 << ". " << listaTemp->data.getTitulo() << " de " << listaTemp->data.getArtista() << endl;
-        listaTemp = listaTemp->proximo;
+        cout << i + 1 << ". " << noTemp->data.getTitulo() << " de " << noTemp->data.getArtista() << endl;
+        noTemp = noTemp->proximo;
     }
-
-    // Libera memória
-    delete listaTemp;
 
     system("pause");
     system("clear||cls");
@@ -328,7 +319,7 @@ void removerPlaylist(Lista<Playlist> *listaPlaylistsCadastradas, int indicePlayl
     else
     {
         // Limpando memória
-        listaPlaylistsCadastradas->buscarPorIndice(indicePlaylistEscolhida)->data.getLista()->~Lista();
+        listaPlaylistsCadastradas->buscarPorIndice(indicePlaylistEscolhida)->data.limpar();
         listaPlaylistsCadastradas->remover(indicePlaylistEscolhida);
 
         // Mensagem de sucesso
@@ -522,7 +513,7 @@ void adicionarMusicaPlaylist(Lista<Playlist> *listaPlaylist, Lista<Musica> *list
     cout << "Adicione uma musica a playlist:\n"
          << endl;
 
-    No<Musica> *listaTemp = listaMusicasCadastradas->cabeca;
+    No<Musica> *noTemp = listaMusicasCadastradas->cabeca;
 
     Musica musicaNova;
     musicaNova = pedirMusica();
@@ -532,25 +523,22 @@ void adicionarMusicaPlaylist(Lista<Playlist> *listaPlaylist, Lista<Musica> *list
     for (int i = 0; i < listaMusicasCadastradas->tamanho; i++)
     {
         // comparação de titulo
-        if (listaTemp->data.getTitulo().compare(musicaNova.getTitulo()) == 0)
+        if (noTemp->data.getTitulo().compare(musicaNova.getTitulo()) == 0)
         {
             // comparação de artista
-            if (listaTemp->data.getArtista().compare(musicaNova.getArtista()) == 0)
+            if (noTemp->data.getArtista().compare(musicaNova.getArtista()) == 0)
             {
                 // cadastro da música apenas na playlist
                 listaPlaylist->buscarPorIndice(indicePlaylist)->data.adicionarMusica(musicaNova);
                 return;
             }
         }
-        listaTemp = listaTemp->proximo;
+        noTemp = noTemp->proximo;
     }
 
     // cadastro da música na playlist e no sistema
     listaPlaylist->buscarPorIndice(indicePlaylist)->data.adicionarMusica(musicaNova);
     listaMusicasCadastradas->inserir(musicaNova);
-
-    // Libera memória
-    delete listaTemp;
 
     // Mensagem de sucesso
     cout << "Musica adicionada com sucesso." << endl;
@@ -581,8 +569,6 @@ void removerMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhid
     No<Musica> *noTemp = nullptr;
 
     bool removidoDePlaylist = false;
-
-    system("clear||cls");
 
     Musica musicaRemovida;
     cout << "Remover uma musica da playlist:\n"
@@ -622,9 +608,6 @@ void removerMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhid
     {
         cout << "Musica nao encontrada." << endl;
     }
-
-    // Limpando memória
-    delete listaMusicaTemporaria;
 
     system("pause");
     system("clear||cls");
@@ -804,7 +787,7 @@ void gerenciarMusicasEmPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lis
         cout << "MENU!" << endl
              << "O que voce deseja fazer? (Digite o numero apenas)" << endl;
         cout << "1 - Adicionar musicas a playlist" << endl;
-        cout << "2 - Remover musicas da playlista" << endl;
+        cout << "2 - Remover musicas da playlist" << endl;
         cout << "3 - Listar musicas da playlist" << endl;
         cout << "4 - Mover musica da playlist" << endl;
         cout << "5 - Voltar" << endl;
@@ -851,7 +834,7 @@ void sair(Lista<Musica> *listaMusicasCadastradas, Lista<Playlist> *listaPlaylist
 
     for (int i = 0; i < listaPlaylistsCadastradas->tamanho; i++)
     {
-        listaPlaylistsCadastradas->buscarPorIndice(i)->data.getLista()->~Lista(); /**< Libera lista de músicas de todas as playlists cadastradas*/
+        listaPlaylistsCadastradas->buscarPorIndice(i)->data.limpar(); /**< Libera lista de músicas de todas as playlists cadastradas*/
     }
     delete listaPlaylistsCadastradas; /**< Libera lista de playlists cadastradas*/
 

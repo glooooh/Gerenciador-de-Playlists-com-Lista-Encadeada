@@ -129,6 +129,7 @@ public:
                 noAtual = noAtual->proximo;
             }
 
+
             // O ponteiro 'noExcluido' é atualizado para apontar ao nó que será excluído.
             noExcluido = noAtual->proximo;
             // O ponteiro 'proximo' de noAtual é atualizado para apontar para nullptr.

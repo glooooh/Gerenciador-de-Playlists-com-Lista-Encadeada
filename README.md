@@ -99,9 +99,12 @@ Após o acesso, o sistema retorna para o menu inicial com uma mensagem ao topo, 
 <br><br>
 
 ## Limitações do Programa:
-<br>
-O programa não consegue restringir as entradas que recebe, assim, ele pode receber um texto no lugar de um número, ocasionando em bugs.
-<br>
-O programa não possui um banco de dados, assim, todos o dados modificados serão perdidos ao fim do programa.
+<br><br>
+1. O programa não consegue restringir as entradas que recebe, assim, ele pode receber um texto no lugar de um número, ocasionando em bugs.
+1. O programa não possui um banco de dados, assim, todos o dados modificados serão perdidos ao fim do programa.
 
 ## Dificuldades encontradas durante o desenvolvimento:
+<br><br>
+1. Um dos principais problemas foi a desalocação de memória, não sabiamos a forma correta de fazer e tivemos muitas dificuldades por tentar integrar de uma forma errada.
+1. Utilização de template para o tipo de dado da classe lista, não conseguimos utilizar o template e manter um arquivo cpp ao mesmo tempo.
+

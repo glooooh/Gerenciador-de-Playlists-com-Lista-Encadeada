@@ -1,5 +1,5 @@
 /**
- * @file Musica.h
+ * @file Lista.h
  * @brief Arquivo header da classe Lista.
  */
 

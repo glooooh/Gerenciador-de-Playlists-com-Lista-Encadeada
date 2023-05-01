@@ -1,6 +1,6 @@
 /**
  * @file Musica.h
- * @brief Arquivo header da classe Música.
+ * @brief Arquivo header da classe Lista.
  */
 
 #ifndef LISTA_H

@@ -5,14 +5,14 @@
 
 #include <iostream>
 
-#include "Musica.h" /**< Inclui a classe Música. */
+#include "Musica.h" /**< Inclui a classe Musica. */
 
 using namespace std;
 
 /**
  * @brief Construtor da classe Musica.
  * @param t é o nome da Musica.
- * @param a é o artista responsável pela Música.
+ * @param a é o artista responsável pela Musica.
  */
 Musica::Musica(string t, string a)
 {

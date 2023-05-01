@@ -9,7 +9,7 @@
 #include <string>
 
 #include "Lista.h"  /**< Inclui a classe Lista. */
-#include "Musica.h" /**< Inclui a classe Música. */
+#include "Musica.h" /**< Inclui a classe Musica. */
 
 using namespace std;
 

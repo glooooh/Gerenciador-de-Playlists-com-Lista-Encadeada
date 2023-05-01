@@ -872,7 +872,7 @@ int main(int argc, char *argv[])
     listaMusicasCadastradas->inserir(Musica("Bones", "Imagine Dragons"));
     listaMusicasCadastradas->inserir(Musica("Natural", "Imagine Dragons"));
     listaMusicasCadastradas->inserir(Musica("Demons", "Imagine Dragons"));
-    listaMusicasCadastradas->inserir(Musica("Bird", "Imagine Dragons"));
+    listaMusicasCadastradas->inserir(Musica("Birds", "Imagine Dragons"));
 
     /**
      * Insere uma playlist pré-definida na lista de playlists cadastradas

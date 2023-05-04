@@ -93,8 +93,6 @@ No<Musica> *Playlist::proximaMusica()
         return NULL;
     }
 
-    No<Musica> *celula = new No<Musica>;
-
     // Verifica se é a última música tocando.
     if (this->musicaTocando == this->lista->tamanho)
     {
@@ -106,7 +104,7 @@ No<Musica> *Playlist::proximaMusica()
     }
 
     // Busca a música que está tocando pelo índice.
-    celula = this->lista->buscarPorIndice(musicaTocando);
+    No<Musica> *celula = this->lista->buscarPorIndice(musicaTocando);
 
     // Incrementa o índice.
     this->musicaTocando++;

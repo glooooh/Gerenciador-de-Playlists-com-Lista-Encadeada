@@ -37,6 +37,8 @@ public:
     string getNome();
     Lista<Musica> *getLista();
 
+    bool operator==(const Playlist& other) const;
+
     // CRUD
     bool adicionarMusica(Musica);
     bool removerMusica(int);
@@ -51,3 +53,43 @@ public:
 };
 
 #endif
+
+// Melhorias na classe que representa a Playlist
+// Nossa classe que representa uma Playlist e possui uma lista ligada deve espelhar as
+// melhorias que foram feitas na classe Lista Ligada.
+// 3 - Implemente os seguintes métodos adicionais:
+// A. Adicionar músicas: Este método é uma versão sobrecarregada do método
+// que adiciona uma música à Playlist, porém esse método recebe como
+// parâmetro, por referência, outra Playlist. Ao final da operação espera-se que
+// todos os elementos da playlist recebida sejam adicionados no final da playlist
+// atual.
+// B. Remover músicas: Este método é uma versão sobrecarregada do método que
+// remove uma música da Playlist, porém esse método recebe como parâmetro,
+// por referência, outra Playlist e remove todas as músicas da playlist atual, que
+// estejam na lista recebida por parâmetro. O método deve retornar um número
+// com a quantidade de elementos que foram removidos.
+// C. Construtor cópia: Este método é similar ao construtor cópia criado para a
+// lista, porém feito para a playlist.
+// 4 - Implemente os seguintes operadores para a Playlist:
+// A. Operador “+”: implementa a união de duas PlayLists. Diferente da
+// concatenação de Listas Ligadas, a união de playlists não permite músicas
+// repetidas na playlist resultante. A operação não deve modificar a playlist
+// original, retornando uma nova lista como resultado.
+// B. Operador “+”: Uma versão sobrecarregada do operador “+” porém
+// recebendo uma música como parâmetro. Nesse caso, a música deve ser
+// adicionada ao final da playlist que é retornada como resultado do operador.
+// (a playlist original continua inalterada).
+// C. Operador “-”: implementa a diferença entre duas playlists. Sejam duas
+// Playlists a e b, a operação a – b retorna a uma nova playlist contendo todos os
+// elementos da playlist a que não estão na playlist b. Da mesma forma que a
+// operação de união, a playlist original não deve ser modificada após a
+// operação.
+// D. Operador “-”: uma versão sobrecarregada do operador “-” porém recebendo
+// uma música como parâmetro. Nesse caso, a música deve ser removida da
+// playlist que é retornada como resultado do operador. (a playlist original
+// continua inalterada).
+// E. Operador de extração “>>”: remove a última música da playlist atual e
+// preenche na Música recebida como argumento. Caso não existam músicas na
+// playlist, nullptr deve ser preenchido no parâmetro.
+// F. Operador de inserção “<<”: insere a música recebida na última posição da
+// playlist atual. Caso nullptr seja recebido, nada deve ser feito.

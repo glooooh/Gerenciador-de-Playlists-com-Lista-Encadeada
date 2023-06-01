@@ -41,3 +41,12 @@ string Musica::getTitulo() { return titulo; }
  * @return o artista responsável pela musica.
  */
 string Musica::getArtista() { return artista; }
+
+bool Musica::operator==(const Musica& other) const
+{
+    if (this->titulo.compare(other.titulo) || this->artista.compare(other.artista)) {
+        return false;
+    }
+
+    return true;
+}

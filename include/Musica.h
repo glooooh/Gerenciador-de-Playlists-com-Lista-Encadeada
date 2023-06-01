@@ -31,6 +31,8 @@ public:
     // Gets
     string getTitulo();
     string getArtista();
+
+    bool operator==(const Musica& other) const;
 };
 
 #endif

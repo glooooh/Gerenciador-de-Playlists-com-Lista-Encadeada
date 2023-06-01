@@ -1,15 +1,15 @@
 /**
  * @file main.cpp
  * @brief Arquivo principal do programa.
-*/
+ */
 
 #include <iostream>
 #include <string>
 #include <locale>
 
-using namespace std;
-
 #include "Playlist.h" /**< Inclui a classe Playlist. */
+
+using namespace std;
 
 /**
  * @brief Pedir informações de uma música para o usuário.
@@ -67,8 +67,10 @@ void cadastrarMusica(Lista<Musica> *listaMusicasCadastradas)
             // comparação de artista
             if (noTemp->data.getArtista().compare(musicaNova.getArtista()) == 0)
             {
+
+                cout << "Pressione 's' para sair..." << endl;
                 cout << "Cadastro invalido! Musica ja foi cadastrada anteriormente" << endl;
-                system("pause");
+                cin.ignore(256, 's');
                 return;
             }
         }
@@ -79,8 +81,10 @@ void cadastrarMusica(Lista<Musica> *listaMusicasCadastradas)
     listaMusicasCadastradas->inserir(musicaNova);
 
     // Mensagem de sucesso
+
+    cout << "Pressione 's' para sair..." << endl;
     cout << "\nMusica cadastrada no sistema." << endl;
-    system("pause");
+    cin.ignore(256, 's');
     system("clear||cls");
 
     return;
@@ -98,8 +102,10 @@ void removerMusica(Lista<Playlist> *listaPlaylists, Lista<Musica> *listaMusicasC
     /* Caso não exista músicas cadastradas retorna a função imediatamente*/
     if (listaMusicasCadastradas->tamanho == 0)
     {
+
+        cout << "Pressione 's' para sair..." << endl;
         cout << "Nao ha musicas para remover" << endl;
-        system("pause");
+        cin.ignore(256, 's');
         return;
     }
 
@@ -175,7 +181,8 @@ void removerMusica(Lista<Playlist> *listaPlaylists, Lista<Musica> *listaMusicasC
         cout << "\nMusica invalida!" << endl;
     }
 
-    system("pause");
+    cout << "Pressione 's' para sair..." << endl;
+    cin.ignore(256, 's');
     system("clear||cls");
 
     return;
@@ -200,7 +207,8 @@ void listarMusicas(Lista<Musica> *listaMusicasCadastradas)
         noTemp = noTemp->proximo;
     }
 
-    system("pause");
+    cout << "Pressione 's' para sair..." << endl;
+    cin.ignore(256, 's');
     system("clear||cls");
 
     return;
@@ -287,8 +295,10 @@ void adicionarPlaylist(Lista<Playlist> *listaPlaylistsCadastradas)
     listaPlaylistsCadastradas->inserir(playlistNova);
 
     // Mensagem de sucesso
+
+    cout << "Pressione 's' para sair..." << endl;
     cout << "Playlist adicionada no sistema" << endl;
-    system("pause");
+    cin.ignore(256, 's');
     system("clear||cls");
 }
 
@@ -304,8 +314,10 @@ void removerPlaylist(Lista<Playlist> *listaPlaylistsCadastradas, int indicePlayl
     /* Caso não exista playlist cadastradas retorna a função imediatamente. */
     if (listaPlaylistsCadastradas->tamanho == 0)
     {
+
+        cout << "Pressione 's' para sair..." << endl;
         cout << "Nao ha playlists para remover" << endl;
-        system("pause");
+        cin.ignore(256, 's');
         return;
     }
 
@@ -323,8 +335,10 @@ void removerPlaylist(Lista<Playlist> *listaPlaylistsCadastradas, int indicePlayl
         listaPlaylistsCadastradas->remover(indicePlaylistEscolhida);
 
         // Mensagem de sucesso
+
+        cout << "Pressione 's' para sair..." << endl;
         cout << "Playlist removida do sistema" << endl;
-        system("pause");
+        cin.ignore(256, 's');
         system("clear||cls");
     }
 }
@@ -396,8 +410,10 @@ void gerenciarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica
             system("clear||cls");
             cout << "Playlists cadastradas no sistema:\n"
                  << endl;
+
+            cout << "Pressione 's' para sair..." << endl;
             listarPlaylists(listaPlaylistsCadastradas);
-            system("pause");
+            cin.ignore(256, 's');
             system("clear||cls");
             break;
         case 4:
@@ -435,13 +451,13 @@ void estaTocandoAgora(Lista<Playlist> *listaPlaylistsCadastradas, int playlistTo
     }
 
     /** Verifica se a célula é NULL.
-     * 
+     *
      * A célula pode ser igual a NULL por vários motivos, dentre eles:
      * 1. Não há playlists cadastradas no sistema;
      * 2. A playlist não possui nenhuma música;
      * 3. Todas as músicas da playlists já foram tocadas e o usuário chegou ao fim dela.
-     * 
-     * Caso a célula seja NULL, imprime uma mensagem de erro "Nao ha uma proxima musica na fila.", 
+     *
+     * Caso a célula seja NULL, imprime uma mensagem de erro "Nao ha uma proxima musica na fila.",
      * caso contrário imprime a música tocando atualmente.
      */
     if (celula != NULL)
@@ -456,7 +472,8 @@ void estaTocandoAgora(Lista<Playlist> *listaPlaylistsCadastradas, int playlistTo
         cout << "Nao ha uma proxima musica na fila." << endl;
         cout << "----------------------------------" << endl;
 
-        system("pause");
+        cout << "Pressione 's' para sair..." << endl;
+        cin.ignore(256, 's');
         system("clear||cls");
 
         cout << "------------------------" << endl;
@@ -543,7 +560,8 @@ void adicionarMusicaPlaylist(Lista<Playlist> *listaPlaylist, Lista<Musica> *list
     // Mensagem de sucesso
     cout << "Musica adicionada com sucesso." << endl;
 
-    system("pause");
+    cout << "Pressione 's' para sair..." << endl;
+    cin.ignore(256, 's');
     system("clear||cls");
 
     return;
@@ -560,8 +578,10 @@ void removerMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhid
     /* Caso não exista músicas cadastradas na playlist retorna a função imediatamente*/
     if (listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista()->tamanho == 0)
     {
+
+        cout << "Pressione 's' para sair..." << endl;
         cout << "Nao ha musicas para remover" << endl;
-        system("pause");
+        cin.ignore(256, 's');
         return;
     }
 
@@ -609,7 +629,8 @@ void removerMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhid
         cout << "Musica nao encontrada." << endl;
     }
 
-    system("pause");
+    cout << "Pressione 's' para sair..." << endl;
+    cin.ignore(256, 's');
     system("clear||cls");
 
     return;
@@ -630,7 +651,8 @@ void listarMusicasPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhid
     // Chama método que imprime a playlist
     listaPlaylists->buscarPorIndice(playlistEscolhida)->data.imprimir();
 
-    system("pause");
+    cout << "Pressione 's' para sair..." << endl;
+    cin.ignore(256, 's');
     system("clear||cls");
 
     return;
@@ -651,8 +673,10 @@ void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
     /* Caso não exista músicas cadastradas na playlist retorna a função imediatamente. */
     if (listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista()->tamanho == 0)
     {
+
+        cout << "Pressione 's' para sair..." << endl;
         cout << "Nao ha musicas para mover" << endl;
-        system("pause");
+        cin.ignore(256, 's');
         return;
     }
 
@@ -679,16 +703,20 @@ void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
     /* Verifica se o índice atual é válido. */
     else if (listaPlaylists->buscarPorIndice(playlistEscolhida)->getData().getLista()->tamanho <= musicaIndice && musicaIndice > 0)
     {
+
+        cout << "Pressione 's' para sair..." << endl;
         cout << "Indice de musica invalido." << endl;
-        system("pause");
+        cin.ignore(256, 's');
         system("clear||cls");
         return;
     }
     /* Verifica se o índice novo é válido. */
     else if (listaPlaylists->buscarPorIndice(playlistEscolhida)->getData().getLista()->tamanho <= indiceNovo && indiceNovo > 0)
     {
+
+        cout << "Pressione 's' para sair..." << endl;
         cout << "Indice de musica invalido." << endl;
-        system("pause");
+        cin.ignore(256, 's');
         system("clear||cls");
         return;
     }
@@ -732,8 +760,10 @@ void moverMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhida)
     }
 
     /* Mensagem de sucesso. */
+
+    cout << "Pressione 's' para sair..." << endl;
     cout << "Musica movida com sucesso." << endl;
-    system("pause");
+    cin.ignore(256, 's');
     system("clear||cls");
     return;
 }
@@ -755,8 +785,10 @@ void gerenciarMusicasEmPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lis
     /* Caso não exista playlist cadastrada retorna a função imediatamente*/
     if (listaPlaylistsCadastradas->tamanho == 0)
     {
+
+        cout << "Pressione 's' para sair..." << endl;
         cout << "Nao ha playlists para gerenciar" << endl;
-        system("pause");
+        cin.ignore(256, 's');
         return;
     }
 
@@ -844,9 +876,9 @@ void sair(Lista<Musica> *listaMusicasCadastradas, Lista<Playlist> *listaPlaylist
 
 /**
  * @brief Função principal do programa.
- * 
+ *
  * @return Valor inteiro indicando sucesso ou falha na execução do programa.
-*/
+ */
 int main(int argc, char *argv[])
 {
     setlocale(LC_ALL, ""); /**< Configura o idioma local. */
@@ -858,6 +890,7 @@ int main(int argc, char *argv[])
     /**
      * Insere no sistema valores pré-definidos na lista de músicas cadastradas
      */
+    listaMusicasCadastradas->inserir(Musica("The Alcott", "The National"));
     listaMusicasCadastradas->inserir(Musica("Red", "Taylor Swift"));
     listaMusicasCadastradas->inserir(Musica("Lego House", "Ed Sheeran"));
     listaMusicasCadastradas->inserir(Musica("Deixa Eu Viver", "Mari Fernandez"));
@@ -865,7 +898,6 @@ int main(int argc, char *argv[])
     listaMusicasCadastradas->inserir(Musica("Sorry To Me Too", "Julia Michaels"));
     listaMusicasCadastradas->inserir(Musica("Go Getter", "Mia Giovina"));
     listaMusicasCadastradas->inserir(Musica("So Good", "Halsey"));
-    listaMusicasCadastradas->inserir(Musica("The Alcott", "The National"));
     listaMusicasCadastradas->inserir(Musica("You Only Love Me", "Rita Ora"));
     listaMusicasCadastradas->inserir(Musica("Una Noche Sin Pensar", "Sebastian Yatra"));
 
@@ -894,6 +926,53 @@ int main(int argc, char *argv[])
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Natural", "Imagine Dragons"));
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Demons", "Imagine Dragons"));
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Bird", "Imagine Dragons"));
+
+    // TESTE
+    Lista<Musica> *lista_inserir = new Lista<Musica>;
+    // Lista<Musica> lista_inserir;
+
+    lista_inserir->inserir(Musica("Youre Losing Me", "Taylor Swift"));
+    lista_inserir->inserir(Musica("Eyes Closed", "Ed Sheeran"));
+    lista_inserir->inserir(Musica("Nervous", "John Legend"));
+
+    listaMusicasCadastradas->inserirLista(lista_inserir);
+
+    Lista<Musica> *lista_remover = new Lista<Musica>;
+    // Lista<Musica> lista_remover;
+
+    lista_remover->inserir(Musica("Red", "Taylor Swift"));
+    lista_remover->inserir(Musica("Eyes Closed", "Ed Sheeran"));
+    lista_remover->inserir(Musica("Nervous", "John Legend"));
+
+    listaMusicasCadastradas->removerLista(lista_remover);
+
+    Lista<Musica> lista = *lista_remover;
+    for (int i = 0; i < lista.tamanho; i++)
+    {
+        cout << i + 1 << ". " << lista.buscarPorIndice(i)->getData().getTitulo() << " de " << lista.buscarPorIndice(i)->getData().getArtista() << endl;
+    }
+
+    cout << endl;
+
+    Lista<Musica> lista_soma = lista + *lista_inserir;
+    for (int i = 0; i < lista_soma.tamanho; i++)
+    {
+        cout << i + 1 << ". " << lista_soma.buscarPorIndice(i)->getData().getTitulo() << " de " << lista_soma.buscarPorIndice(i)->getData().getArtista() << endl;
+    }
+
+    cout << endl;
+
+    No<Musica> *no;
+    lista_soma >> no;
+    cout << 1 << ". " << no->getData().getTitulo() << " de " << no->getData().getArtista() << endl;
+
+    cout << endl;
+
+    lista_soma << no;
+    for (int i = 0; i < lista_soma.tamanho; i++)
+    {
+        cout << i + 1 << ". " << lista_soma.buscarPorIndice(i)->getData().getTitulo() << " de " << lista_soma.buscarPorIndice(i)->getData().getArtista() << endl;
+    }
 
     /* MENU PRINCIPAL */
 

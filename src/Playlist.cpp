@@ -55,6 +55,15 @@ Lista<Musica> *Playlist::getLista()
     return lista;
 }
 
+bool Playlist::operator==(const Playlist& other) const
+{
+    if (this->nome.compare(other.nome)) {
+        return false;
+    }
+
+    return true;
+}
+
 /**
  * @brief Adiciona uma música à playlist.
  * @param musica é a música a ser adicionada.

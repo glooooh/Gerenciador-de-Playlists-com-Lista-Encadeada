@@ -44,32 +44,6 @@ Playlist::~Playlist()
     delete lista;
 }
 
-/**
- * @brief Limpa a lista de músicas da playlist.
- */
-void Playlist::limpar()
-{
-    this->lista->~Lista();
-}
-
-/**
- * @brief Retorna o nome da playlist.
- * @return o nome da playlist.
- */
-string Playlist::getNome()
-{
-    return nome;
-}
-
-/**
- * @brief Retorna o ponteiro para a lista de músicas da playlist.
- * @return o ponteiro para a lista de músicas da playlist.
- */
-Lista<Musica> *Playlist::getLista()
-{
-    return lista;
-}
-
 bool Playlist::operator==(const Playlist &other) const
 {
     if (this->nome.compare(other.nome))
@@ -170,6 +144,32 @@ void Playlist::operator<<(Musica *&musica) {
     
     No<Musica> *noTemp = new No<Musica>(*musica);
     *this->getLista() << noTemp;
+}
+
+/**
+ * @brief Limpa a lista de músicas da playlist.
+ */
+void Playlist::limpar()
+{
+    this->lista->~Lista();
+}
+
+/**
+ * @brief Retorna o nome da playlist.
+ * @return o nome da playlist.
+ */
+string Playlist::getNome()
+{
+    return nome;
+}
+
+/**
+ * @brief Retorna o ponteiro para a lista de músicas da playlist.
+ * @return o ponteiro para a lista de músicas da playlist.
+ */
+Lista<Musica> *Playlist::getLista()
+{
+    return lista;
 }
 
 /**

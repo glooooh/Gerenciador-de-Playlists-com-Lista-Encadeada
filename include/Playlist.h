@@ -32,8 +32,8 @@ public:
 
     // Destrutor
     ~Playlist();
-    void limpar();
 
+    // Sobrecarga de operadores
     bool operator==(const Playlist& other) const;
     Playlist *operator=(const Playlist& other);
     Playlist operator+(const Playlist& other);  // a união de playlists não permite músicas repetidas na playlist resultante. A operação não deve modificar a playlist original, retornando uma nova lista como resultado.
@@ -55,6 +55,9 @@ public:
                                                 playlist, nullptr deve ser preenchido no parâmetro.*/
     void operator<<(Musica*& musica);           /** F. Operador de inserção “<<”: insere a música recebida na última posição da
                                                 playlist atual. Caso nullptr seja recebido, nada deve ser feito. */
+
+    // método limpar (destrutor)
+    void limpar();
 
     // Gets
     string getNome();

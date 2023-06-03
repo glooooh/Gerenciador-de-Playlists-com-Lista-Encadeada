@@ -29,7 +29,7 @@ public:
     No(T data)
     {
         this->data = data;
-        No *proximo = nullptr;
+        this->proximo = nullptr;
     }
 
     /**
@@ -47,7 +47,7 @@ public:
      * @brief Retorna o dado armazenado no Nó.
      * @return O dado armazenado no Nó.
      */
-    T getData() { return data; }
+    T getData() { return this->data; }
 };
 
 #endif

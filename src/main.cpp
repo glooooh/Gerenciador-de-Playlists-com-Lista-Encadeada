@@ -6,6 +6,8 @@
 #include <iostream>
 #include <string>
 #include <locale>
+#include <fstream> /**< Essa biblioteca fornece classes e funções para manipular arquivos de entrada e saída em C++.*/
+#include <cstdlib> /**< Conserta os erros de system.*/
 
 #include "Playlist.h" /**< Inclui a classe Playlist. */
 
@@ -909,7 +911,7 @@ int main(int argc, char *argv[])
     /**
      * Insere uma playlist pré-definida na lista de playlists cadastradas
      */
-    listaPlaylistsCadastradas->inserir(Playlist("Playlist de Gloria"));
+    listaPlaylistsCadastradas->inserir(Playlist("Playlist Gloria"));
     listaPlaylistsCadastradas->inserir(Playlist("Playlist Marcos"));
 
     /**
@@ -927,25 +929,32 @@ int main(int argc, char *argv[])
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Demons", "Imagine Dragons"));
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Bird", "Imagine Dragons"));
 
-    // TESTE
+    /**
+     * Teste da função inserir com parâmetro do tipo Lista<Musica>
+     */
     Lista<Musica> *lista_inserir = new Lista<Musica>;
-    // Lista<Musica> lista_inserir;
 
     lista_inserir->inserir(Musica("Youre Losing Me", "Taylor Swift"));
     lista_inserir->inserir(Musica("Eyes Closed", "Ed Sheeran"));
     lista_inserir->inserir(Musica("Nervous", "John Legend"));
 
-    listaMusicasCadastradas->inserirLista(lista_inserir);
+    listaMusicasCadastradas->inserir(lista_inserir);
 
-    Lista<Musica> *lista_remover = new Lista<Musica>;
-    // Lista<Musica> lista_remover;
+    /**
+     * Teste da função remover com parâmetro do tipo Lista<Musica>
+     */
+    Lista<Musica> *lista_remover = new Lista<Musica>();
 
     lista_remover->inserir(Musica("Red", "Taylor Swift"));
     lista_remover->inserir(Musica("Eyes Closed", "Ed Sheeran"));
     lista_remover->inserir(Musica("Nervous", "John Legend"));
 
-    listaMusicasCadastradas->removerLista(lista_remover);
+    int qnt_teste = listaMusicasCadastradas->remover(lista_remover);
+    cout << qnt_teste << " musicas foram excluidas." << endl;
 
+    /**
+     * Teste do construtor cópia de Lista<Musica>.
+     */
     Lista<Musica> lista = *lista_remover;
     for (int i = 0; i < lista.tamanho; i++)
     {
@@ -954,32 +963,131 @@ int main(int argc, char *argv[])
 
     cout << endl;
 
-    Lista<Musica> lista_soma = lista + *lista_inserir;
-    for (int i = 0; i < lista_soma.tamanho; i++)
+    /**
+     * Teste da sobrecarga no operador + de Lista<Musica>.
+     */
+    Lista<Musica> *lista_soma = lista + *lista_inserir;
+    for (int i = 0; i < lista_soma->tamanho; i++)
     {
-        cout << i + 1 << ". " << lista_soma.buscarPorIndice(i)->getData().getTitulo() << " de " << lista_soma.buscarPorIndice(i)->getData().getArtista() << endl;
+        cout << i + 1 << ". " << lista_soma->buscarPorIndice(i)->getData().getTitulo() << " de " << lista_soma->buscarPorIndice(i)->getData().getArtista() << endl;
     }
 
     cout << endl;
 
+    /**
+     * Teste da sobrecarga no operador >> de Lista<Musica>.
+     */
     No<Musica> *no;
-    lista_soma >> no;
+    *lista_soma >> no;
     cout << 1 << ". " << no->getData().getTitulo() << " de " << no->getData().getArtista() << endl;
 
     cout << endl;
 
-    lista_soma << no;
-    for (int i = 0; i < lista_soma.tamanho; i++)
+    /**
+     * Teste da sobrecarga no operador << de Lista<Musica>.
+     */
+    *lista_soma << no;
+    for (int i = 0; i < lista_soma->tamanho; i++)
     {
-        cout << i + 1 << ". " << lista_soma.buscarPorIndice(i)->getData().getTitulo() << " de " << lista_soma.buscarPorIndice(i)->getData().getArtista() << endl;
+        cout << i + 1 << ". " << lista_soma->buscarPorIndice(i)->getData().getTitulo() << " de " << lista_soma->buscarPorIndice(i)->getData().getArtista() << endl;
     }
+
+    cout << endl;
+
+    /**
+     * Teste da função adicionar música com parâmetro do tipo Playlist.
+     */
+    listaPlaylistsCadastradas->cabeca->getData().adicionarMusica(listaPlaylistsCadastradas->cabeca->proximo->getData());
+
+    /**
+     * Teste da função remover música com parâmetro do tipo Playlist.
+     */
+    listaPlaylistsCadastradas->cabeca->getData().removerMusica(listaPlaylistsCadastradas->cabeca->proximo->getData());
+
+    /**
+     * Teste do construtor cópia de Playlist.
+     */
+    listaPlaylistsCadastradas->inserir(Playlist("Playlist Teste"));
+    listaPlaylistsCadastradas->cabeca->proximo->proximo->data = listaPlaylistsCadastradas->cabeca->proximo->data;
+
+    /**
+     * Teste da sobrecarga no operador + de Playlist com função "Playlist + Playlist".
+     * */
+    listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Red", "Taylor Swift"));
+    Playlist playlist_marcos_gloria = listaPlaylistsCadastradas->cabeca->data + listaPlaylistsCadastradas->cabeca->proximo->data;
+
+    for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
+    {
+        cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
+    }
+
+    cout << endl;
+
+    /**
+     * Teste da sobrecarga no operador + de Playlist com função "Playlist + Música".
+     */
+    playlist_marcos_gloria = playlist_marcos_gloria + Musica("Midnight Rain", "Taylor Swift");
+    cout << 11 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(10)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(10)->getData().getArtista() << endl;
+    
+    cout << endl;
+
+    /**
+     * Teste da sobrecarga no operador - de Playlist com função "Playlist - Playlist".
+     */
+    playlist_marcos_gloria = playlist_marcos_gloria - listaPlaylistsCadastradas->cabeca->getData();
+    
+    for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
+    {
+        cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
+    }
+
+    cout << endl;
+
+    /**
+     * Teste da sobrecarga no operador - de Playlist com função "Playlist - Música".
+     */
+    playlist_marcos_gloria = playlist_marcos_gloria - Musica("Midnight Rain", "Taylor Swift");
+    
+    for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
+    {
+        cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
+    }
+
+    cout << endl;
+
+    /**
+     * Teste da sobrecarga no operador >> de Playlist.
+     */
+    Musica *musicaExtraida;
+    playlist_marcos_gloria >> musicaExtraida;
+
+    for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
+    {
+        cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
+    }
+
+    cout << "A musica extraida foi " << musicaExtraida->getTitulo() << " de " << musicaExtraida->getArtista() << endl;
+    
+    cout << endl;
+
+    /**
+     * Teste da sobrecarga no operador << de Playlist.
+     */
+    playlist_marcos_gloria << musicaExtraida;
+
+    for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
+    {
+        cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
+    }
+    
+    cout << endl;
 
     /* MENU PRINCIPAL */
 
-    int continuar = 1;       /**< Variável que indica qual opção do menu foi escolhida pelo usuário. */
-    int playlistTocando = 0; /**< Variável que indica a playlist tocando atualmente. Caso o usuário não escolha uma playlist irá tocar a primeira cadastrada.*/
+    int continuar = 1;          /**< Variável que indica qual opção do menu foi escolhida pelo usuário. */
+    int playlistTocando = 0;    /**< Variável que indica a playlist tocando atualmente. Caso o usuário não escolha uma playlist irá tocar a primeira cadastrada.*/
 
-    do /**< Loop exibe o menu até que o usuário selecione a opção "Sair"*/
+    do  /**< Loop exibe o menu até que o usuário selecione a opção "Sair"*/
     {
         cout << "MENU!" << endl
              << "O que voce deseja fazer? (Digite o numero apenas)" << endl;

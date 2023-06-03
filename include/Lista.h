@@ -46,6 +46,8 @@ public:
         this->tamanho = 0;
 
         No<T> *noAtual = other.cabeca;
+        // No<T> *noAtual = new No<T>(*other.cabeca);
+
         while (noAtual != nullptr)
         {
             inserir(noAtual->getData());
@@ -72,45 +74,49 @@ public:
 
     /// Operadores
 
-    Lista<T> operator+(const Lista<T> &other) const
+    Lista<T> *operator+(Lista<T> &other) const
     {
-        Lista<T> novaLista;
+        Lista<T> *novaLista = new Lista<T>();
 
         No<T> *noAtual = this->cabeca;
+
         while (noAtual != nullptr)
         {
-            novaLista.inserir(noAtual->getData());
+            novaLista->inserir(noAtual->getData());
             noAtual = noAtual->proximo;
         }
 
         noAtual = other.cabeca;
         while (noAtual != nullptr)
         {
-            novaLista.inserir(noAtual->getData());
+            novaLista->inserir(noAtual->getData());
             noAtual = noAtual->proximo;
         }
 
         return novaLista;
     }
 
-    void operator>>(No<T>*& no) const{
-        if (cauda == nullptr) {
+    void operator>>(No<T> *&no) const
+    {
+        if (cauda == nullptr)
+        {
             no = nullptr;
             return;
         }
-        
+
         no = new No<T>(cauda->data);
         no->proximo = nullptr;
     }
 
-    void operator<<(No<T>*& no) {
-        if (no == nullptr){
+    void operator<<(No<T> *&no)
+    {
+        if (no == nullptr)
+        {
             return;
         }
 
         this->inserir(no->getData());
     }
-
 
     /**
      * @brief Insere um novo elemento na lista.
@@ -149,7 +155,7 @@ public:
      * @param lista Lista com dados a serem inseridos.
      * @details
      */
-    void inserirLista(Lista<T> *lista)
+    void inserir(Lista<T> *lista)
     {
         for (int i = 0; i < lista->tamanho; i++)
         {
@@ -235,25 +241,25 @@ public:
      * @param lista.
      * @details
      */
-    bool removerLista(Lista<T> *lista)
+    int remover(Lista<T> *lista)
     {
-        bool removidoDePlaylist = false;
+        int qntd_removidos = 0;
         for (int i = 0; i < lista->tamanho; i++)
         {
             // percorrendo a lista ligada atual
             for (int j = 0; j < this->tamanho; j++)
             {
                 // comparação de titulo
-                if (this->buscarPorIndice(j)->getData() == lista->buscarPorIndice(i)->getData())
+                if (lista->buscarPorIndice(i)->getData() == this->buscarPorIndice(j)->getData())
                 {
                     this->remover(j);
-                    removidoDePlaylist = true;
+                    qntd_removidos++;
                     break;
                 }
             }
         }
 
-        return removidoDePlaylist;
+        return qntd_removidos;
     }
 
     /**

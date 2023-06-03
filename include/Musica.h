@@ -29,7 +29,7 @@ public:
     ~Musica();
 
     // Gets
-    string getTitulo();
+    string getTitulo() const;
     string getArtista();
 
     bool operator==(const Musica& other) const;

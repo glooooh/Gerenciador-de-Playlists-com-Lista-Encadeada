@@ -34,7 +34,7 @@ Musica::~Musica() {}
  * @brief Retornar o titulo da musica.
  * @return o titulo da musica.
  */
-string Musica::getTitulo() { return titulo; }
+string Musica::getTitulo() const { return titulo; }
 
 /**
  * @brief Retornar o artista responsável pela musica.

@@ -28,20 +28,43 @@ public:
     // Construtores
     Playlist(string);
     Playlist();
+    Playlist(const Playlist &other);
 
     // Destrutor
     ~Playlist();
     void limpar();
 
+    bool operator==(const Playlist& other) const;
+    Playlist *operator=(const Playlist& other);
+    Playlist operator+(const Playlist& other);  // a união de playlists não permite músicas repetidas na playlist resultante. A operação não deve modificar a playlist original, retornando uma nova lista como resultado.
+    Playlist operator+(const Musica& other);    /** B. Operador “+”: Uma versão sobrecarregada do operador “+” porém
+                                                recebendo uma música como parâmetro. Nesse caso, a música deve ser
+                                                adicionada ao final da playlist que é retornada como resultado do operador.
+                                                (a playlist original continua inalterada).*/
+    Playlist operator-(const Playlist& other);  /** C. Operador “-”: implementa a diferença entre duas playlists. Sejam duas
+                                                Playlists a e b, a operação a – b retorna a uma nova playlist contendo todos os
+                                                elementos da playlist a que não estão na playlist b. Da mesma forma que a
+                                                operação de união, a playlist original não deve ser modificada após a
+                                                operação. */
+    Playlist operator-(const Musica& other);    /** D. Operador “-”: uma versão sobrecarregada do operador “-” porém recebendo
+                                                uma música como parâmetro. Nesse caso, a música deve ser removida da,
+                                                playlist que é retornada como resultado do operador. (a playlist original
+                                                continua inalterada).*/
+    void operator>>(Musica*& musica);           /** E. Operador de extração “>>”: remove a última música da playlist atual e
+                                                preenche na Música recebida como argumento. Caso não existam músicas na
+                                                playlist, nullptr deve ser preenchido no parâmetro.*/
+    void operator<<(Musica*& musica);           /** F. Operador de inserção “<<”: insere a música recebida na última posição da
+                                                playlist atual. Caso nullptr seja recebido, nada deve ser feito. */
+
     // Gets
     string getNome();
     Lista<Musica> *getLista();
 
-    bool operator==(const Playlist& other) const;
-
     // CRUD
     bool adicionarMusica(Musica);
+    bool adicionarMusica(Playlist);
     bool removerMusica(int);
+    int removerMusica(Playlist);
 
     // Metodos da funcionalidade "tocando"
     No<Musica> *proximaMusica();

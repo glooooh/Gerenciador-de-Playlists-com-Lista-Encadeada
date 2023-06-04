@@ -362,6 +362,159 @@ void listarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas)
     return;
 }
 
+void realizarOperacoesPlaylist(Lista<Playlist> *listaPlaylistsCadastradas)
+{
+    // Menu para gerenciar as músicas da playlist escolhida
+    int continuar = 1;
+
+    Musica musicaEscolhida, *musicaPtr = &musicaEscolhida;
+    int playlistEscolhida1, playlistEscolhida2;
+
+    do
+    {
+        cout << "MENU!" << endl
+             << "O que voce deseja fazer? (Digite o numero apenas)" << endl;
+        cout << "1 - Playlist a + Playlist b" << endl;
+        cout << "2 - Playlist a + Musica b" << endl;
+        cout << "3 - Playlist a - Playlist b" << endl;
+        cout << "4 - Playlist a - Musica b" << endl;
+        cout << "5 - Extrair a ultima musica de uma playlist" << endl;
+        cout << "6 - Inserir uma musica ao final de uma playlist" << endl;
+        cout << "7 - Voltar" << endl;
+
+        cin >> continuar;
+
+        switch (continuar)
+        {
+        case 1:
+
+            // imprimir playlists cadastradas
+            listarPlaylists(listaPlaylistsCadastradas);
+
+            // Solicita o índice da playlist a ser tocada
+            cout << "Digite o numero da playlist a: " << endl;
+            cin >> playlistEscolhida1;
+            playlistEscolhida1--;
+            cout << "Digite o numero da playlist b: " << endl;
+            cin >> playlistEscolhida2;
+            playlistEscolhida2--;
+
+            listaPlaylistsCadastradas->inserir(listaPlaylistsCadastradas->buscarPorIndice(playlistEscolhida1)->getData() + listaPlaylistsCadastradas->buscarPorIndice(playlistEscolhida2)->getData());
+
+            cout << "Pressione 's' para sair..." << endl;
+            cin.ignore(256, 's');
+            system("clear||cls");
+            break;
+        case 2:
+            // imprimir playlists cadastradas
+            listarPlaylists(listaPlaylistsCadastradas);
+
+            // Solicita o índice da playlist a ser tocada
+            cout << "Digite o numero da playlist: " << endl;
+            cin >> playlistEscolhida1;
+            playlistEscolhida1--;
+            cout << "Cadastre uma musica: \n"
+                 << endl;
+            musicaEscolhida = pedirMusica();
+
+            listaPlaylistsCadastradas->inserir(listaPlaylistsCadastradas->buscarPorIndice(playlistEscolhida1)->getData() + musicaEscolhida);
+            
+            cout << "Pressione 's' para sair..." << endl;
+            cin.ignore(256, 's');
+            system("clear||cls");
+            break;
+        case 3:
+            // imprimir playlists cadastradas
+            listarPlaylists(listaPlaylistsCadastradas);
+
+            // Solicita o índice da playlist a ser tocada
+            cout << "Digite o numero da playlist a: " << endl;
+            cin >> playlistEscolhida1;
+            playlistEscolhida1--;
+            cout << "Digite o numero da playlist b: " << endl;
+            cin >> playlistEscolhida2;
+            playlistEscolhida2--;
+
+            listaPlaylistsCadastradas->inserir(listaPlaylistsCadastradas->buscarPorIndice(playlistEscolhida1)->getData() - listaPlaylistsCadastradas->buscarPorIndice(playlistEscolhida2)->getData());
+            
+            cout << "Pressione 's' para sair..." << endl;
+            cin.ignore(256, 's');
+            system("clear||cls");
+            
+            break;
+        case 4:
+            // imprimir playlists cadastradas
+            listarPlaylists(listaPlaylistsCadastradas);
+
+            // Solicita o índice da playlist a ser tocada
+            cout << "Digite o numero da playlist: " << endl;
+            cin >> playlistEscolhida1;
+            playlistEscolhida1--;
+            cout << "Cadastre uma musica: \n"
+                 << endl;
+            musicaEscolhida = pedirMusica();
+
+            listaPlaylistsCadastradas->inserir(listaPlaylistsCadastradas->buscarPorIndice(playlistEscolhida1)->getData() - musicaEscolhida);
+            
+            cout << "Pressione 's' para sair..." << endl;
+            cin.ignore(256, 's');
+            system("clear||cls");
+            
+            break;
+        case 5:
+            // imprimir playlists cadastradas
+            listarPlaylists(listaPlaylistsCadastradas);
+
+            // Solicita o índice da playlist a ser tocada
+            cout << "Digite o numero da playlist: " << endl;
+            cin >> playlistEscolhida1;
+            playlistEscolhida1--;
+
+            listaPlaylistsCadastradas->buscarPorIndice(playlistEscolhida1)->data >> musicaPtr;
+
+            cout << "A musica extraida da playlist foi: " << musicaPtr->getTitulo() << " de " << musicaPtr->getArtista() << endl;
+            
+            cout << "Pressione 's' para sair..." << endl;
+            cin.ignore(256, 's');
+            system("clear||cls");
+            
+            break;
+        case 6:
+            // imprimir playlists cadastradas
+            listarPlaylists(listaPlaylistsCadastradas);
+
+            // Solicita o índice da playlist a ser tocada
+            cout << "Digite o numero da playlist: " << endl;
+            cin >> playlistEscolhida1;
+            playlistEscolhida1--;
+            cout << "Cadastre uma musica: \n"
+                 << endl;
+            musicaEscolhida = pedirMusica();
+
+            listaPlaylistsCadastradas->buscarPorIndice(playlistEscolhida1)->data << musicaPtr;
+
+            cout << "Musica adicionada com sucesso" << endl;
+            
+            cout << "Pressione 's' para sair..." << endl;
+            cin.ignore(256, 's');
+            system("clear||cls");
+            
+            break;
+        case 7:
+            system("clear||cls");
+            return;
+            break;
+        default:
+            system("clear||cls");
+            cout << "========================" << endl;
+            cout << "Digite uma opcao valida!" << endl;
+            cout << "========================" << endl;
+            break;
+        }
+
+    } while (continuar);
+}
+
 /**
  * @brief Gerencia as playlists cadastradas.
  * @param listaPlaylistsCadastradas Ponteiro para a lista de playlists cadastradas.
@@ -386,10 +539,8 @@ void gerenciarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica
         cout << "1 - Adicionar playlists" << endl;
         cout << "2 - Remover playlists" << endl;
         cout << "3 - Listar playlists" << endl;
-        // Fazer cópia de playlist
-        // Unir duas playlists
-
-        cout << "4 - Voltar" << endl;
+        cout << "4 - Realizar operacoes de uniao, subtracao, extracao e insercao" << endl;
+        cout << "5 - Voltar" << endl;
 
         cin >> continuar;
 
@@ -416,12 +567,15 @@ void gerenciarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica
             cout << "Playlists cadastradas no sistema:\n"
                  << endl;
 
-            cout << "Pressione 's' para sair..." << endl;
             listarPlaylists(listaPlaylistsCadastradas);
+            cout << "Pressione 's' para sair..." << endl;
             cin.ignore(256, 's');
             system("clear||cls");
             break;
         case 4:
+            realizarOperacoesPlaylist(listaPlaylistsCadastradas);
+            break;
+        case 5:
             system("clear||cls");
             return;
             break;
@@ -532,38 +686,74 @@ int escolherPlaylist(Lista<Playlist> *listaPlaylistsCadastradas)
 void adicionarMusicaPlaylist(Lista<Playlist> *listaPlaylist, Lista<Musica> *listaMusicasCadastradas, int indicePlaylist)
 {
     system("clear||cls");
-    cout << "Adicione uma musica a playlist:\n"
+
+    int opcao;
+    cout << "Escolha a opcao: \n 1. Adicionar uma musica\n 2. Adicionar musicas de outra playlist\n"
          << endl;
+    cout << "Digite a opcao: ";
+    cin >> opcao;
 
-    No<Musica> *noTemp = listaMusicasCadastradas->cabeca;
-
-    Musica musicaNova;
-    musicaNova = pedirMusica();
-
-    // percorre a lista encadeada de músicas já cadastradas e confere se a música a ser cadastrada
-    // ainda não existe na lista
-    for (int i = 0; i < listaMusicasCadastradas->tamanho; i++)
+    if (opcao == 1)
     {
-        // comparação de titulo
-        if (noTemp->data.getTitulo().compare(musicaNova.getTitulo()) == 0)
+        cout << "Adicione uma musica a playlist:\n"
+             << endl;
+
+        No<Musica> *noTemp = listaMusicasCadastradas->cabeca;
+
+        Musica musicaNova;
+        musicaNova = pedirMusica();
+
+        // percorre a lista encadeada de músicas já cadastradas e confere se a música a ser cadastrada
+        // ainda não existe na lista
+        for (int i = 0; i < listaMusicasCadastradas->tamanho; i++)
         {
-            // comparação de artista
-            if (noTemp->data.getArtista().compare(musicaNova.getArtista()) == 0)
+            // comparação de titulo
+            if (noTemp->data.getTitulo().compare(musicaNova.getTitulo()) == 0)
             {
-                // cadastro da música apenas na playlist
-                listaPlaylist->buscarPorIndice(indicePlaylist)->data.adicionarMusica(musicaNova);
-                return;
+                // comparação de artista
+                if (noTemp->data.getArtista().compare(musicaNova.getArtista()) == 0)
+                {
+                    // cadastro da música apenas na playlist
+                    listaPlaylist->buscarPorIndice(indicePlaylist)->data.adicionarMusica(musicaNova);
+                    return;
+                }
             }
+            noTemp = noTemp->proximo;
         }
-        noTemp = noTemp->proximo;
+
+        // cadastro da música na playlist e no sistema
+        listaPlaylist->buscarPorIndice(indicePlaylist)->data.adicionarMusica(musicaNova);
+        listaMusicasCadastradas->inserir(musicaNova);
+
+        // Mensagem de sucesso
+        cout << "Musica adicionada com sucesso." << endl;
     }
+    else if (opcao == 2)
+    {
+        int playlistEscolhida;
 
-    // cadastro da música na playlist e no sistema
-    listaPlaylist->buscarPorIndice(indicePlaylist)->data.adicionarMusica(musicaNova);
-    listaMusicasCadastradas->inserir(musicaNova);
+        // imprimir playlists cadastradas
+        listarPlaylists(listaPlaylist);
 
-    // Mensagem de sucesso
-    cout << "Musica adicionada com sucesso." << endl;
+        // Solicita o índice da playlist a ser tocada
+        cout << "Digite o numero da playlist que sera juntada: " << endl;
+        cin >> playlistEscolhida;
+        playlistEscolhida--;
+
+        if (playlistEscolhida > listaPlaylist->tamanho)
+        {
+            cout << "Opcao invalida." << endl;
+        }
+        else
+        {
+            listaPlaylist->buscarPorIndice(indicePlaylist)->data.adicionarMusica(listaPlaylist->buscarPorIndice(playlistEscolhida)->getData());
+            cout << "Playlist atualizada com sucesso" << endl;
+        }
+    }
+    else
+    {
+        cout << "Opcao invalida" << endl;
+    }
 
     cout << "Pressione 's' para sair..." << endl;
     cin.ignore(256, 's');
@@ -590,48 +780,83 @@ void removerMusicaPlaylist(Lista<Playlist> *listaPlaylists, int playlistEscolhid
         return;
     }
 
-    Lista<Musica> *listaMusicaTemporaria = nullptr;
-    No<Musica> *noTemp = nullptr;
-
-    bool removidoDePlaylist = false;
-
-    Musica musicaRemovida;
-    cout << "Remover uma musica da playlist:\n"
+    int opcao;
+    cout << "Escolha a opcao: \n 1. Remover uma musica \n 2. Remover musicas iguais a outra playlist\n"
          << endl;
-    musicaRemovida = pedirMusica();
+    cout << "Digite a opcao: ";
+    cin >> opcao;
 
-    // buscando lista ligada de playlist
-    listaMusicaTemporaria = listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista();
-
-    // buscando o nó cabeca da lista ligada
-    noTemp = listaMusicaTemporaria->cabeca;
-
-    // percorrendo a lista ligada dentro de playlists
-    for (int j = 0; j < listaMusicaTemporaria->tamanho; j++)
+    if (opcao == 1)
     {
-        // comparação de titulo
-        if (noTemp->data.getTitulo().compare(musicaRemovida.getTitulo()) == 0)
+        Lista<Musica> *listaMusicaTemporaria = nullptr;
+        No<Musica> *noTemp = nullptr;
+
+        bool removidoDePlaylist = false;
+
+        Musica musicaRemovida;
+        cout << "Remover uma musica da playlist:\n"
+             << endl;
+        musicaRemovida = pedirMusica();
+
+        // buscando lista ligada de playlist
+        listaMusicaTemporaria = listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getLista();
+
+        // buscando o nó cabeca da lista ligada
+        noTemp = listaMusicaTemporaria->cabeca;
+
+        // percorrendo a lista ligada dentro de playlists
+        for (int j = 0; j < listaMusicaTemporaria->tamanho; j++)
         {
-            // comparação de artista
-            if (noTemp->data.getArtista().compare(musicaRemovida.getArtista()) == 0)
+            // comparação de titulo
+            if (noTemp->data.getTitulo().compare(musicaRemovida.getTitulo()) == 0)
             {
-                // remover musica da playlist
-                removidoDePlaylist = listaPlaylists->buscarPorIndice(playlistEscolhida)->data.removerMusica(j);
-                break;
+                // comparação de artista
+                if (noTemp->data.getArtista().compare(musicaRemovida.getArtista()) == 0)
+                {
+                    // remover musica da playlist
+                    removidoDePlaylist = listaPlaylists->buscarPorIndice(playlistEscolhida)->data.removerMusica(j);
+                    break;
+                }
             }
+            noTemp = noTemp->proximo;
         }
-        noTemp = noTemp->proximo;
-    }
 
-    // Caso a música tenha sido removida de alguma playlist imprime um aviso
-    if (removidoDePlaylist)
+        // Caso a música tenha sido removida de alguma playlist imprime um aviso
+        if (removidoDePlaylist)
+        {
+            cout << musicaRemovida.getTitulo() << " foi removido da playlist " << listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getNome() << endl;
+            removidoDePlaylist = false;
+        }
+        else
+        {
+            cout << "Musica nao encontrada." << endl;
+        }
+    }
+    else if (opcao == 2)
     {
-        cout << musicaRemovida.getTitulo() << " foi removido da playlist " << listaPlaylists->buscarPorIndice(playlistEscolhida)->data.getNome() << endl;
-        removidoDePlaylist = false;
+        int indicePlaylist, excluidos;
+
+        // imprimir playlists cadastradas
+        listarPlaylists(listaPlaylists);
+
+        // Solicita o índice da playlist a ser tocada
+        cout << "Digite o numero da playlist que possui as musicas que serao excluidas: " << endl;
+        cin >> indicePlaylist;
+        indicePlaylist--;
+
+        if (playlistEscolhida > listaPlaylists->tamanho)
+        {
+            cout << "Opcao invalida." << endl;
+        }
+        else
+        {
+            excluidos = listaPlaylists->buscarPorIndice(playlistEscolhida)->data.removerMusica(listaPlaylists->buscarPorIndice(indicePlaylist)->getData());
+            cout << excluidos << " musicas foram excluidas da playlist." << endl;
+        }
     }
     else
     {
-        cout << "Musica nao encontrada." << endl;
+        cout << "Opcao invalida." << endl;
     }
 
     cout << "Pressione 's' para sair..." << endl;
@@ -823,8 +1048,8 @@ void gerenciarMusicasEmPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lis
     {
         cout << "MENU!" << endl
              << "O que voce deseja fazer? (Digite o numero apenas)" << endl;
-        cout << "1 - Adicionar musicas a playlist" << endl;
-        cout << "2 - Remover musicas da playlist" << endl;
+        cout << "1 - Adicionar musicas a playlist" << endl; // adicionar opção de sobrecarga
+        cout << "2 - Remover musicas da playlist" << endl;  // adicionar opção de sobrecarga
         cout << "3 - Listar musicas da playlist" << endl;
         cout << "4 - Mover musica da playlist" << endl;
         cout << "5 - Voltar" << endl;
@@ -930,160 +1155,170 @@ int main(int argc, char *argv[])
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Bones", "Imagine Dragons"));
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Natural", "Imagine Dragons"));
     listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Demons", "Imagine Dragons"));
-    listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Bird", "Imagine Dragons"));
+    listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Birds", "Imagine Dragons"));
+    
 
+    /** TESTES DAS NOVAS FUNÇÕES: 
+     * | | | | | | | | | | | | |
+     * v v v v v v v v v v v v v
+    */
     /**
      * Teste da função inserir com parâmetro do tipo Lista<Musica>
      */
-    Lista<Musica> *lista_inserir = new Lista<Musica>;
+    //Lista<Musica> *lista_inserir = new Lista<Musica>;
 
-    lista_inserir->inserir(Musica("Youre Losing Me", "Taylor Swift"));
-    lista_inserir->inserir(Musica("Eyes Closed", "Ed Sheeran"));
-    lista_inserir->inserir(Musica("Nervous", "John Legend"));
+    //lista_inserir->inserir(Musica("Youre Losing Me", "Taylor Swift"));
+    //lista_inserir->inserir(Musica("Eyes Closed", "Ed Sheeran"));
+    //lista_inserir->inserir(Musica("Nervous", "John Legend"));
 
-    listaMusicasCadastradas->inserir(lista_inserir);
+    //listaMusicasCadastradas->inserir(lista_inserir);
 
     /**
      * Teste da função remover com parâmetro do tipo Lista<Musica>
      */
-    Lista<Musica> *lista_remover = new Lista<Musica>();
+    // Lista<Musica> *lista_remover = new Lista<Musica>();
 
-    lista_remover->inserir(Musica("Red", "Taylor Swift"));
-    lista_remover->inserir(Musica("Eyes Closed", "Ed Sheeran"));
-    lista_remover->inserir(Musica("Nervous", "John Legend"));
+    // lista_remover->inserir(Musica("Red", "Taylor Swift"));
+    // lista_remover->inserir(Musica("Eyes Closed", "Ed Sheeran"));
+    // lista_remover->inserir(Musica("Nervous", "John Legend"));
 
-    int qnt_teste = listaMusicasCadastradas->remover(lista_remover);
-    cout << qnt_teste << " musicas foram excluidas." << endl;
+    // int qnt_teste = listaMusicasCadastradas->remover(lista_remover);
+    // cout << qnt_teste << " musicas foram excluidas." << endl;
 
     /**
      * Teste do construtor cópia de Lista<Musica>.
      */
-    Lista<Musica> lista = *lista_remover;
-    for (int i = 0; i < lista.tamanho; i++)
-    {
-        cout << i + 1 << ". " << lista.buscarPorIndice(i)->getData().getTitulo() << " de " << lista.buscarPorIndice(i)->getData().getArtista() << endl;
-    }
+    // Lista<Musica> lista = *lista_remover;
+    // for (int i = 0; i < lista.tamanho; i++)
+    // {
+    //     cout << i + 1 << ". " << lista.buscarPorIndice(i)->getData().getTitulo() << " de " << lista.buscarPorIndice(i)->getData().getArtista() << endl;
+    // }
 
-    cout << endl;
+    // cout << endl;
 
     /**
      * Teste da sobrecarga no operador + de Lista<Musica>.
      */
-    Lista<Musica> *lista_soma = lista + *lista_inserir;
-    for (int i = 0; i < lista_soma->tamanho; i++)
-    {
-        cout << i + 1 << ". " << lista_soma->buscarPorIndice(i)->getData().getTitulo() << " de " << lista_soma->buscarPorIndice(i)->getData().getArtista() << endl;
-    }
+    // Lista<Musica> *lista_soma = lista + *lista_inserir;
+    // for (int i = 0; i < lista_soma->tamanho; i++)
+    // {
+    //     cout << i + 1 << ". " << lista_soma->buscarPorIndice(i)->getData().getTitulo() << " de " << lista_soma->buscarPorIndice(i)->getData().getArtista() << endl;
+    // }
 
-    cout << endl;
+    // cout << endl;
 
     /**
      * Teste da sobrecarga no operador >> de Lista<Musica>.
      */
-    No<Musica> *no;
-    *lista_soma >> no;
-    cout << 1 << ". " << no->getData().getTitulo() << " de " << no->getData().getArtista() << endl;
+    // No<Musica> *no;
+    // *lista_soma >> no;
+    // cout << 1 << ". " << no->getData().getTitulo() << " de " << no->getData().getArtista() << endl;
 
-    cout << endl;
+    // cout << endl;
 
     /**
      * Teste da sobrecarga no operador << de Lista<Musica>.
      */
-    *lista_soma << no;
-    for (int i = 0; i < lista_soma->tamanho; i++)
-    {
-        cout << i + 1 << ". " << lista_soma->buscarPorIndice(i)->getData().getTitulo() << " de " << lista_soma->buscarPorIndice(i)->getData().getArtista() << endl;
-    }
+    // *lista_soma << no;
+    // for (int i = 0; i < lista_soma->tamanho; i++)
+    // {
+    //     cout << i + 1 << ". " << lista_soma->buscarPorIndice(i)->getData().getTitulo() << " de " << lista_soma->buscarPorIndice(i)->getData().getArtista() << endl;
+    // }
 
-    cout << endl;
+    // cout << endl;
 
     /**
      * Teste da função adicionar música com parâmetro do tipo Playlist.
      */
-    listaPlaylistsCadastradas->cabeca->getData().adicionarMusica(listaPlaylistsCadastradas->cabeca->proximo->getData());
+    // listaPlaylistsCadastradas->cabeca->getData().adicionarMusica(listaPlaylistsCadastradas->cabeca->proximo->getData());
 
     /**
      * Teste da função remover música com parâmetro do tipo Playlist.
      */
-    listaPlaylistsCadastradas->cabeca->getData().removerMusica(listaPlaylistsCadastradas->cabeca->proximo->getData());
+    // listaPlaylistsCadastradas->cabeca->getData().removerMusica(listaPlaylistsCadastradas->cabeca->proximo->getData());
 
     /**
      * Teste do construtor cópia de Playlist.
      */
-    listaPlaylistsCadastradas->inserir(Playlist("Playlist Teste"));
-    listaPlaylistsCadastradas->cabeca->proximo->proximo->data = listaPlaylistsCadastradas->cabeca->proximo->data;
+    // listaPlaylistsCadastradas->inserir(Playlist("Playlist Teste"));
+    // listaPlaylistsCadastradas->cabeca->proximo->proximo->data = listaPlaylistsCadastradas->cabeca->proximo->data;
 
     /**
      * Teste da sobrecarga no operador + de Playlist com função "Playlist + Playlist".
      * */
-    listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Red", "Taylor Swift"));
-    Playlist playlist_marcos_gloria = listaPlaylistsCadastradas->cabeca->data + listaPlaylistsCadastradas->cabeca->proximo->data;
+    // listaPlaylistsCadastradas->cabeca->proximo->data.adicionarMusica(Musica("Red", "Taylor Swift"));
+    // Playlist playlist_marcos_gloria = listaPlaylistsCadastradas->cabeca->data + listaPlaylistsCadastradas->cabeca->proximo->data;
 
-    for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
-    {
-        cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
-    }
+    // for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
+    // {
+    //     cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
+    // }
 
-    cout << endl;
+    // cout << endl;
 
     /**
      * Teste da sobrecarga no operador + de Playlist com função "Playlist + Música".
      */
-    playlist_marcos_gloria = playlist_marcos_gloria + Musica("Midnight Rain", "Taylor Swift");
-    cout << 11 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(10)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(10)->getData().getArtista() << endl;
+    // playlist_marcos_gloria = playlist_marcos_gloria + Musica("Midnight Rain", "Taylor Swift");
+    // cout << 11 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(10)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(10)->getData().getArtista() << endl;
 
-    cout << endl;
+    // cout << endl;
 
     /**
      * Teste da sobrecarga no operador - de Playlist com função "Playlist - Playlist".
      */
-    playlist_marcos_gloria = playlist_marcos_gloria - listaPlaylistsCadastradas->cabeca->getData();
+    // playlist_marcos_gloria = playlist_marcos_gloria - listaPlaylistsCadastradas->cabeca->getData();
 
-    for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
-    {
-        cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
-    }
+    // for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
+    // {
+    //     cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
+    // }
 
-    cout << endl;
+    // cout << endl;
 
     /**
      * Teste da sobrecarga no operador - de Playlist com função "Playlist - Música".
      */
-    playlist_marcos_gloria = playlist_marcos_gloria - Musica("Midnight Rain", "Taylor Swift");
+    // playlist_marcos_gloria = playlist_marcos_gloria - Musica("Midnight Rain", "Taylor Swift");
 
-    for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
-    {
-        cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
-    }
+    // for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
+    // {
+    //     cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
+    // }
 
-    cout << endl;
+    // cout << endl;
 
     /**
      * Teste da sobrecarga no operador >> de Playlist.
      */
-    Musica *musicaExtraida;
-    playlist_marcos_gloria >> musicaExtraida;
+    // Musica *musicaExtraida;
+    // playlist_marcos_gloria >> musicaExtraida;
 
-    for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
-    {
-        cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
-    }
+    // for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
+    // {
+    //     cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
+    // }
 
-    cout << "A musica extraida foi " << musicaExtraida->getTitulo() << " de " << musicaExtraida->getArtista() << endl;
+    // cout << "A musica extraida foi " << musicaExtraida->getTitulo() << " de " << musicaExtraida->getArtista() << endl;
 
-    cout << endl;
+    // cout << endl;
 
     /**
      * Teste da sobrecarga no operador << de Playlist.
      */
-    playlist_marcos_gloria << musicaExtraida;
+    // playlist_marcos_gloria << musicaExtraida;
 
-    for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
-    {
-        cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
-    }
+    // for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
+    // {
+    //     cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
+    // }
 
-    cout << endl;
+    // cout << endl;
+
+    /** ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ 
+     *  | | | | | | | | | | | | | | | | |
+     * TESTES DAS NOVAS FUNÇÕES ACABOU!!!
+    */
 
     /** Leitura do arquivo. */
     ifstream arquivo;
@@ -1109,7 +1344,7 @@ int main(int argc, char *argv[])
         }
 
         string musicaInfo;
-        
+
         while (getline(iss, musicaInfo, ','))
         {
             istringstream issMusica(musicaInfo);
@@ -1117,9 +1352,27 @@ int main(int argc, char *argv[])
 
             if (getline(issMusica, nomeMusica, ':') && getline(issMusica, nomeArtista))
             {
+                bool existe = false;
                 int index = listaPlaylistsCadastradas->tamanho - 1;
                 Musica musica(nomeMusica, nomeArtista);
                 listaPlaylistsCadastradas->buscarPorIndice(index)->data.adicionarMusica(musica);
+
+                // Verifica se já existe essa música na lista de músicas cadastradas.
+                for (int i = 0; i < listaMusicasCadastradas->tamanho; i++)
+                {
+                    // comparação de titulo
+                    if (musica == listaMusicasCadastradas->buscarPorIndice(i)->getData())
+                    {
+                        existe = true;
+                    }
+                }
+                /** Verifica se a música está cadastrada.
+                 * Se sim, insere na lista de músicas cadastradas. Se não, continua.
+                 */
+                if (!existe)
+                {
+                    listaMusicasCadastradas->inserir(musica);
+                }
             }
         }
     }

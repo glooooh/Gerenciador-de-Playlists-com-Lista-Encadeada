@@ -6,8 +6,8 @@
 #include <iostream>
 #include <string>
 #include <locale>
+#include <sstream>
 #include <fstream> /**< Essa biblioteca fornece classes e funções para manipular arquivos de entrada e saída em C++.*/
-#include <cstdlib> /**< Conserta os erros de system.*/
 
 #include "Playlist.h" /**< Inclui a classe Playlist. */
 
@@ -386,6 +386,9 @@ void gerenciarPlaylists(Lista<Playlist> *listaPlaylistsCadastradas, Lista<Musica
         cout << "1 - Adicionar playlists" << endl;
         cout << "2 - Remover playlists" << endl;
         cout << "3 - Listar playlists" << endl;
+        // Fazer cópia de playlist
+        // Unir duas playlists
+
         cout << "4 - Voltar" << endl;
 
         cin >> continuar;
@@ -1028,14 +1031,14 @@ int main(int argc, char *argv[])
      */
     playlist_marcos_gloria = playlist_marcos_gloria + Musica("Midnight Rain", "Taylor Swift");
     cout << 11 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(10)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(10)->getData().getArtista() << endl;
-    
+
     cout << endl;
 
     /**
      * Teste da sobrecarga no operador - de Playlist com função "Playlist - Playlist".
      */
     playlist_marcos_gloria = playlist_marcos_gloria - listaPlaylistsCadastradas->cabeca->getData();
-    
+
     for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
     {
         cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
@@ -1047,7 +1050,7 @@ int main(int argc, char *argv[])
      * Teste da sobrecarga no operador - de Playlist com função "Playlist - Música".
      */
     playlist_marcos_gloria = playlist_marcos_gloria - Musica("Midnight Rain", "Taylor Swift");
-    
+
     for (int i = 0; i < playlist_marcos_gloria.getLista()->tamanho; i++)
     {
         cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
@@ -1067,7 +1070,7 @@ int main(int argc, char *argv[])
     }
 
     cout << "A musica extraida foi " << musicaExtraida->getTitulo() << " de " << musicaExtraida->getArtista() << endl;
-    
+
     cout << endl;
 
     /**
@@ -1079,15 +1082,68 @@ int main(int argc, char *argv[])
     {
         cout << i + 1 << ". " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getTitulo() << " de " << playlist_marcos_gloria.getLista()->buscarPorIndice(i)->getData().getArtista() << endl;
     }
-    
+
     cout << endl;
+
+    /** Leitura do arquivo. */
+    ifstream arquivo;
+    string linha;
+    arquivo.open("../arquivo_de_texto.txt");
+
+    /* Caso o programa não consiga ler o arquivo retorna com erro. */
+    if (!arquivo.is_open())
+    {
+        cout << "Houve um problema ao abrir o arquivo." << endl;
+        return 1;
+    }
+
+    /* Se o programa conseguir abrir o arquivo o código lê as informações e cadastra as playlists. */
+    while (getline(arquivo, linha))
+    {
+        istringstream iss(linha);
+        string playlistNome;
+
+        if (getline(iss, playlistNome, ';'))
+        {
+            listaPlaylistsCadastradas->inserir(playlistNome);
+        }
+
+        string musicaInfo;
+        
+        while (getline(iss, musicaInfo, ','))
+        {
+            istringstream issMusica(musicaInfo);
+            string nomeMusica, nomeArtista;
+
+            if (getline(issMusica, nomeMusica, ':') && getline(issMusica, nomeArtista))
+            {
+                int index = listaPlaylistsCadastradas->tamanho - 1;
+                Musica musica(nomeMusica, nomeArtista);
+                listaPlaylistsCadastradas->buscarPorIndice(index)->data.adicionarMusica(musica);
+            }
+        }
+    }
+
+    /** Fecha o arquivo. */
+    arquivo.close();
+
+    /** Se o arquivo não fechar, retorna erro. Se o arquivo fechar continua o programa normal.*/
+    if (arquivo.is_open())
+    {
+        cout << "O arquivo não foi fechado corretamente." << endl;
+        return 1;
+    }
+    else
+    {
+        cout << "O arquivo foi fechado com sucesso." << endl;
+    }
 
     /* MENU PRINCIPAL */
 
-    int continuar = 1;          /**< Variável que indica qual opção do menu foi escolhida pelo usuário. */
-    int playlistTocando = 0;    /**< Variável que indica a playlist tocando atualmente. Caso o usuário não escolha uma playlist irá tocar a primeira cadastrada.*/
+    int continuar = 1;       /**< Variável que indica qual opção do menu foi escolhida pelo usuário. */
+    int playlistTocando = 0; /**< Variável que indica a playlist tocando atualmente. Caso o usuário não escolha uma playlist irá tocar a primeira cadastrada.*/
 
-    do  /**< Loop exibe o menu até que o usuário selecione a opção "Sair"*/
+    do /**< Loop exibe o menu até que o usuário selecione a opção "Sair"*/
     {
         cout << "MENU!" << endl
              << "O que voce deseja fazer? (Digite o numero apenas)" << endl;

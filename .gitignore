@@ -10,6 +10,7 @@ build/Makefile
 build/compile_commands.json
 build/.cmake/
 build/MeuProjeto.exe
+build/MeuProjeto
 Doxyfile.in
 CMakeLists.txt
 Doxyfile

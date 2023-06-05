@@ -1093,15 +1093,7 @@ void sair(Lista<Musica> *listaMusicasCadastradas, Lista<Playlist> *listaPlaylist
 {
     /* Libera a memória das listas. */
     delete listaMusicasCadastradas; /**< Libera lista de músicas cadastradas*/
-
-    for (int i = 0; i < listaPlaylistsCadastradas->tamanho; i++)
-    {
-        listaPlaylistsCadastradas->buscarPorIndice(i)->data.limpar(); /**< Libera lista de músicas de todas as playlists cadastradas*/
-    }
     delete listaPlaylistsCadastradas; /**< Libera lista de playlists cadastradas*/
-
-    /* Encerra o programa. */
-    exit(0);
 }
 
 /**
@@ -1388,7 +1380,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        cout << "O arquivo foi fechado com sucesso." << endl;
+        cout << "O arquivo foi lido com sucesso." << endl;
     }
 
     /* MENU PRINCIPAL */
@@ -1428,7 +1420,7 @@ int main(int argc, char *argv[])
             break;
         case 6:
             sair(listaMusicasCadastradas, listaPlaylistsCadastradas);
-            break;
+            return 0;
         default:
             cout << "Digite uma opção válida!" << endl;
             break;

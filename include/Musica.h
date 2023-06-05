@@ -32,6 +32,7 @@ public:
     string getTitulo() const;
     string getArtista();
 
+    // Sobrecargas de operadores
     bool operator==(const Musica& other) const;
 };
 

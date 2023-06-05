@@ -27,7 +27,8 @@ Playlist::Playlist(string n)
 Playlist::Playlist() {}
 
 /**
- * @brief Construtor cópia da classe Playlist.
+ * @brief Construtor de cópia da classe Playlist.
+ * @param other Playlist a ser copiada.
  */
 Playlist::Playlist(const Playlist &other)
 {
@@ -44,6 +45,11 @@ Playlist::~Playlist()
     delete lista;
 }
 
+/**
+ * @brief Sobrecarga do operador de igualdade (==) para comparar duas playlists.
+ * @param other A outra playlist para comparar.
+ * @return true se as playlists forem iguais, false caso contrário.
+ */
 bool Playlist::operator==(const Playlist &other) const
 {
     if (this->nome.compare(other.nome))
@@ -54,6 +60,11 @@ bool Playlist::operator==(const Playlist &other) const
     return true;
 }
 
+/**
+ * @brief Sobrecarga do operador de atribuição (=) para copiar uma playlist para outra.
+ * @param other A playlist a ser copiada.
+ * @return Um ponteiro para a playlist atualizada.
+ */
 Playlist *Playlist::operator=(const Playlist &other)
 {
     this->nome = other.nome;
@@ -63,6 +74,11 @@ Playlist *Playlist::operator=(const Playlist &other)
     return this;
 }
 
+/**
+ * @brief Sobrecarga do operador de adição (+) para unir duas playlists.
+ * @param other A outra playlist para unir.
+ * @return Uma nova playlist como resultado da união das duas playlists.
+ */
 Playlist Playlist::operator+(const Playlist &other)
 {
     Playlist playlistUniao(this->getNome() + " U " + other.nome);
@@ -73,7 +89,8 @@ Playlist Playlist::operator+(const Playlist &other)
     {
         for (int j = i + 1; j < playlistUniao.getLista()->tamanho; j++)
         {
-            if (playlistUniao.getLista()->buscarPorIndice(i)->getData() == playlistUniao.getLista()->buscarPorIndice(j)->getData()){
+            if (playlistUniao.getLista()->buscarPorIndice(i)->getData() == playlistUniao.getLista()->buscarPorIndice(j)->getData())
+            {
                 playlistUniao.removerMusica(j);
             }
         }
@@ -82,6 +99,11 @@ Playlist Playlist::operator+(const Playlist &other)
     return playlistUniao;
 }
 
+/**
+ * @brief Sobrecarga do operador de adição (+) para adicionar uma música a uma playlist.
+ * @param other A música a ser adicionada.
+ * @return Uma nova playlist como resultado da adição da música à playlist.
+ */
 Playlist Playlist::operator+(const Musica &other)
 {
     Playlist playlistUniao(this->getNome() + " U " + other.getTitulo());
@@ -92,6 +114,11 @@ Playlist Playlist::operator+(const Musica &other)
     return playlistUniao;
 }
 
+/**
+ * @brief Sobrecarga do operador de subtração (-) para remover músicas de uma playlist.
+ * @param other A outra playlist contendo as músicas a serem removidas.
+ * @return Uma nova playlist como resultado da remoção das músicas.
+ */
 Playlist Playlist::operator-(const Playlist &other)
 {
     Playlist playlistResultado;
@@ -104,6 +131,11 @@ Playlist Playlist::operator-(const Playlist &other)
     return playlistResultado;
 }
 
+/**
+ * @brief Sobrecarga do operador de subtração (-) para remover uma música de uma playlist.
+ * @param other A música a ser removida.
+ * @return Uma nova playlist com o resultado da remoção da música.
+ */
 Playlist Playlist::operator-(const Musica &other)
 {
     Playlist playlistResultado;
@@ -122,6 +154,10 @@ Playlist Playlist::operator-(const Musica &other)
     return playlistResultado;
 }
 
+/**
+ * @brief Sobrecarga do operador de extração (>>). Extrai a última música da playlist.
+ * @param musica Ponteiro para a música extraída.
+ */
 void Playlist::operator>>(Musica *&musica)
 {
     if (this->getLista()->cauda == nullptr)
@@ -129,19 +165,24 @@ void Playlist::operator>>(Musica *&musica)
         musica = nullptr;
         return;
     }
-    
+
     No<Musica> *noTemp;
     *this->getLista() >> noTemp;
     musica = new Musica(noTemp->getData().getTitulo(), noTemp->getData().getArtista());
     this->removerMusica((this->lista->tamanho) - 1);
 }
 
-void Playlist::operator<<(Musica *&musica) {
+/**
+ * @brief Sobrecarga do operador de inserção (<<). Insere uma música ao final da playlist.
+ * @param musica Ponteiro para a música a ser inserida.
+ */
+void Playlist::operator<<(Musica *&musica)
+{
     if (musica == nullptr)
     {
         return;
     }
-    
+
     No<Musica> *noTemp = new No<Musica>(*musica);
     *this->getLista() << noTemp;
 }
@@ -192,11 +233,6 @@ bool Playlist::adicionarMusica(Playlist playlist)
 {
     this->lista->inserir(playlist.getLista());
     return true;
-    // for (int i = 0; i < playlist.getLista()->tamanho; i++)
-    // {
-    //     this->adicionarMusica(playlist.getLista()->buscarPorIndice(i)->getData());
-    // }
-    // return true;
 }
 
 /**
@@ -211,6 +247,11 @@ bool Playlist::removerMusica(int indice)
     return statusOperacao;
 }
 
+/**
+ * @brief Remove as músicas da playlist atual que estão presentes na playlist fornecida.
+ * @param playlist Playlist fornecida.
+ * @return Quantidade de músicas removidas.
+ */
 int Playlist::removerMusica(Playlist playlist)
 {
     int qtd_removidos;

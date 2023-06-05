@@ -39,15 +39,19 @@ public:
         this->tamanho = 0;
     }
 
+    /**
+     * @brief Construtor de cópia da classe Lista.
+     * 
+     * @param other Lista a ser copiada.
+     */
     Lista(const Lista &other)
     {
         this->cabeca = nullptr;
         this->cauda = nullptr;
         this->tamanho = 0;
 
+        // Copia os elementos da lista "other" para a nova lista
         No<T> *noAtual = other.cabeca;
-        // No<T> *noAtual = new No<T>(*other.cabeca);
-
         while (noAtual != nullptr)
         {
             inserir(noAtual->getData());
@@ -72,20 +76,25 @@ public:
         }
     }
 
-    /// Operadores
-
+    /**
+     * @brief Sobrecarga do operador de adição/concatenação (+) para unir duas listas.
+     * 
+     * @param other A outra lista a ser concatenada.
+     * @return Ponteiro para a nova lista resultante da concatenação.
+     */
     Lista<T> *operator+(Lista<T> &other) const
     {
         Lista<T> *novaLista = new Lista<T>();
 
+        // Copia os elementos da lista atual para a nova lista
         No<T> *noAtual = this->cabeca;
-
         while (noAtual != nullptr)
         {
             novaLista->inserir(noAtual->getData());
             noAtual = noAtual->proximo;
         }
 
+        // Copia os elementos da outra lista para a nova lista
         noAtual = other.cabeca;
         while (noAtual != nullptr)
         {
@@ -96,6 +105,11 @@ public:
         return novaLista;
     }
 
+    /**
+     * @brief Sobrecarga do operador de extração (>>) do último nó da lista.
+     * 
+     * @param no Ponteiro para o nó extraído.
+     */
     void operator>>(No<T> *&no) const
     {
         if (cauda == nullptr)
@@ -108,6 +122,11 @@ public:
         no->proximo = nullptr;
     }
 
+    /**
+     * @brief Sobrecarga do operador de inserção de nó.
+     * 
+     * @param no Ponteiro para o nó a ser inserido.
+     */
     void operator<<(No<T> *&no)
     {
         if (no == nullptr)
@@ -150,10 +169,10 @@ public:
     }
 
     /**
-     * @brief Insere os itens de uma lista pré-existente na lista.
-     *
-     * @param lista Lista com dados a serem inseridos.
-     * @details
+     * @brief Insere os elementos de outra lista na lista atual.
+     * 
+     * @param lista Ponteiro para a lista a ser inserida.
+     * @details Os elementos da lista fornecida são inseridos na lista atual.
      */
     void inserir(Lista<T> *lista)
     {
@@ -236,10 +255,13 @@ public:
     }
 
     /**
-     * @brief
+     * @brief Remove os elementos da lista atual que estão presentes na lista fornecida.
+     * @param lista Ponteiro para a lista fornecida.
+     * @return Quantidade de elementos removidos.
      *
-     * @param lista.
-     * @details
+     * @details Percorre a lista fornecida e compara cada elemento com os elementos da lista atual.
+     * Se um elemento é encontrado na lista atual, ele é removido.
+     * Retorna a quantidade total de elementos removidos.
      */
     int remover(Lista<T> *lista)
     {
@@ -291,30 +313,3 @@ public:
 };
 
 #endif
-
-// Melhorias na classe que representa a lista ligada
-// Nossa classe que representa uma Lista Ligada de músicas tem um método
-// relacionado a adicionar novos elementos à lista.
-// 1 - Os novos métodos são:
-// A. Adicionar elementos: Este método recebe como parâmetro, por referência,
-// uma Lista Ligada. Ao final da operação espera-se que todos os elementos da
-// lista recebida sejam adicionados à lista atual.
-// B. Remover elementos: Este método recebe como parâmetro, por referência,
-// uma lista de elementos que devem ser removidos.
-// C. Construtor cópia: Este é um método especial que recebe como parâmetro
-// uma referência para uma lista e retorna uma cópia da mesma. Ele é útil
-// quando fazemos atribuições entre objetos do tipo lista.
-// 2 - Usando sobrecarga de operadores implemente também na lista as seguintes
-// operações:
-// A. Operador “+”: implementa a concatenação de duas listas, por exemplo, sejam
-// duas listas “a” e “b”, a operação a + b causa que uma nova lista seja criada
-// contendo todas as músicas da lista a, seguido de todas as músicas da lista b,
-// na mesma ordem. Observe que a operação não deve modificar nem a lista
-// “a” nem a lista “b” originais, retornando uma nova lista como resultado. Veja
-// que essa operação não faz distinção entre os elementos da lista, logo, no
-// resultado podem haver elementos repetidos.
-// B. Operador de extração “>>”: extrai o último elemento da lista atribuindo seus
-// valores ao nó recebido como argumento. Caso não existam elementos na
-// lista, o valor preenchido no nó recebido pelo operador deve ser nullptr.
-// C. Operador de inserção “<<”: insere um nó no fim da lista. Caso o valor
-// recebido seja nullptr, nada deve ser feito

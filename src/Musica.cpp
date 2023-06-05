@@ -42,6 +42,11 @@ string Musica::getTitulo() const { return titulo; }
  */
 string Musica::getArtista() { return artista; }
 
+/**
+ * @brief Sobrecarga do operador de igualdade (==) para comparar duas músicas.
+ * @param other A outra música a ser comparada.
+ * @return Retorna true se as músicas forem iguais, caso contrário retorna false.
+ */
 bool Musica::operator==(const Musica& other) const
 {
     if (this->titulo.compare(other.titulo) || this->artista.compare(other.artista)) {
